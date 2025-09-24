@@ -3,43 +3,7 @@
     "id": 1758615715876,
     "brand": "GaiaOliva",
     "tanim": "1L Ayvalık",
-    "online": "950",
-    "supermarket": "780",
-    "webSitesi": "1150",
-    "tarih": "2025-08-26"
-  },
-  {
-    "id": 1758615715876,
-    "brand": "GaiaOliva",
-    "tanim": "1L Ayvalık",
-    "online": "980",
-    "supermarket": "790",
-    "webSitesi": "1180",
-    "tarih": "2025-09-02"
-  },
-  {
-    "id": 1758615715876,
-    "brand": "GaiaOliva",
-    "tanim": "1L Ayvalık",
-    "online": "990",
-    "supermarket": "795",
-    "webSitesi": "1190",
-    "tarih": "2025-09-09"
-  },
-  {
-    "id": 1758615715876,
-    "brand": "GaiaOliva",
-    "tanim": "1L Ayvalık",
-    "online": "1000",
-    "supermarket": "800",
-    "webSitesi": "1200",
-    "tarih": "2025-09-16"
-  },
-  {
-    "id": 1758615715876,
-    "brand": "GaiaOliva",
-    "tanim": "1L Ayvalık",
-    "online": "1020",
+    "online": "999",
     "supermarket": "810",
     "webSitesi": "1220",
     "tarih": "2025-09-23"
@@ -49,44 +13,152 @@
     "brand": "Komili",
     "tanim": "1L Memecik",
     "online": "1050",
-    "supermarket": "850",
-    "webSitesi": "1250",
-    "tarih": "2025-08-26"
+    "supermarket": "1050",
+    "webSitesi": "1199",
+    "tarih": "2025-09-23"
   },
   {
-    "id": 1758615743107,
+    "id": 1758615743108,
     "brand": "Komili",
-    "tanim": "1L Memecik",
-    "online": "1080",
-    "supermarket": "870",
-    "webSitesi": "1270",
-    "tarih": "2025-09-02"
+    "tanim": "2L Ege Sızması",
+    "online": "1850",
+    "supermarket": "1850",
+    "webSitesi": "2000",
+    "tarih": "2025-09-23"
   },
   {
-    "id": 1758615743107,
-    "brand": "Komili",
-    "tanim": "1L Memecik",
-    "online": "1090",
-    "supermarket": "880",
-    "webSitesi": "1285",
-    "tarih": "2025-09-09"
+    "id": 1758615743109,
+    "brand": "Tariş",
+    "tanim": "750ML Riviera",
+    "online": "900",
+    "supermarket": "950",
+    "webSitesi": "999",
+    "tarih": "2025-09-23"
   },
   {
-    "id": 1758615743107,
-    "brand": "Komili",
-    "tanim": "1L Memecik",
-    "online": "1100",
-    "supermarket": "890",
-    "webSitesi": "1299",
+    "id": 1758615743110,
+    "brand": "Kristal",
+    "tanim": "5L Natürel Sızma",
+    "online": "4600",
+    "supermarket": "4600",
+    "webSitesi": "4900",
+    "tarih": "2025-09-23"
+  },
+  {
+    "id": 1758615743111,
+    "brand": "Kavlak",
+    "tanim": "1L Sızma Zeytinyağı",
+    "online": "950",
+    "supermarket": "950",
+    "webSitesi": "999",
+    "tarih": "2025-09-23"
+  },
+  {
+    "id": 1758615743112,
+    "brand": "Orkide",
+    "tanim": "3L Natürel Sızma",
+    "online": "2850",
+    "supermarket": "2850",
+    "webSitesi": "3050",
+    "tarih": "2025-09-23"
+  },
+  {
+    "id": 1758615743113,
+    "brand": "Selin",
+    "tanim": "2L Riviera",
+    "online": "1650",
+    "supermarket": "1650",
+    "webSitesi": "1799",
+    "tarih": "2025-09-23"
+  },
+  {
+    "id": 1758615743114,
+    "brand": "Kırlangıç",
+    "tanim": "1L Riviera",
+    "online": "990",
+    "supermarket": "990",
+    "webSitesi": "1150",
     "tarih": "2025-09-16"
   },
   {
-    "id": 1758615743107,
+    "id": 1758615743115,
+    "brand": "Granpa",
+    "tanim": "500ML Soğuk Sıkım",
+    "online": "800",
+    "supermarket": "820",
+    "webSitesi": "870",
+    "tarih": "2025-09-16"
+  },
+  {
+    "id": 1758615743116,
+    "brand": "NovaVera",
+    "tanim": "750ML Natürel Sızma",
+    "online": "1150",
+    "supermarket": "1100",
+    "webSitesi": "1250",
+    "tarih": "2025-09-16"
+  },
+  {
+    "id": 1758615743117,
+    "brand": "Asiltane",
+    "tanim": "2L Ege Sızması",
+    "online": "1900",
+    "supermarket": "1850",
+    "webSitesi": "1950",
+    "tarih": "2025-09-16"
+  },
+  {
+    "id": 1758615743118,
+    "brand": "Marmarabirlik",
+    "tanim": "1L Zeytinyağı",
+    "online": "1050",
+    "supermarket": "1020",
+    "webSitesi": "1120",
+    "tarih": "2025-09-16"
+  },
+  {
+    "id": 1758615743119,
     "brand": "Komili",
-    "tanim": "1L Memecik",
-    "online": "1120",
+    "tanim": "750ML Özel Lezzet",
+    "online": "980",
+    "supermarket": "990",
+    "webSitesi": "1090",
+    "tarih": "2025-09-16"
+  },
+  {
+    "id": 1758615743120,
+    "brand": "Kristal",
+    "tanim": "2L Riviera",
+    "online": "1750",
+    "supermarket": "1700",
+    "webSitesi": "1850",
+    "tarih": "2025-09-16"
+  },
+  {
+    "id": 1758615743121,
+    "brand": "Kırlangıç",
+    "tanim": "5L Natürel Sızma",
+    "online": "4800",
+    "supermarket": "4750",
+    "webSitesi": "5100",
+    "tarih": "2025-09-16"
+  },
+  {
+    "id": 1758615743122,
+    "brand": "Tariş",
+    "tanim": "1L Soğuk Sıkım",
+    "online": "1250",
+    "supermarket": "1200",
+    "webSitesi": "1300",
+    "tarih": "2025-09-16"
+  },
+  {
+    "id": 1758615743123,
+    "brand": "Orkide",
+    "tanim": "750ML Natürel Sızma",
+    "online": "920",
     "supermarket": "900",
-    "webSitesi": "1310",
-    "tarih": "2025-09-23"
+    "webSitesi": "970",
+    "tarih": "2025-09-16"
   }
 ]
