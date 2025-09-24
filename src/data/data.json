@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1758615715876,
+    "brand": "GaiaOliva",
+    "tanim": "1L Ayvalık",
+    "online": "950",
+    "supermarket": "780",
+    "webSitesi": "1150",
+    "tarih": "2025-08-26"
+  },
+  {
+    "id": 1758615715876,
+    "brand": "GaiaOliva",
+    "tanim": "1L Ayvalık",
+    "online": "980",
+    "supermarket": "790",
+    "webSitesi": "1180",
+    "tarih": "2025-09-02"
+  },
+  {
+    "id": 1758615715876,
+    "brand": "GaiaOliva",
+    "tanim": "1L Ayvalık",
+    "online": "990",
+    "supermarket": "795",
+    "webSitesi": "1190",
+    "tarih": "2025-09-09"
+  },
+  {
+    "id": 1758615715876,
+    "brand": "GaiaOliva",
+    "tanim": "1L Ayvalık",
+    "online": "1000",
+    "supermarket": "800",
+    "webSitesi": "1200",
+    "tarih": "2025-09-16"
+  },
+  {
+    "id": 1758615715876,
+    "brand": "GaiaOliva",
+    "tanim": "1L Ayvalık",
+    "online": "1020",
+    "supermarket": "810",
+    "webSitesi": "1220",
+    "tarih": "2025-09-23"
+  },
+  {
+    "id": 1758615743107,
+    "brand": "Komili",
+    "tanim": "1L Memecik",
+    "online": "1050",
+    "supermarket": "850",
+    "webSitesi": "1250",
+    "tarih": "2025-08-26"
+  },
+  {
+    "id": 1758615743107,
+    "brand": "Komili",
+    "tanim": "1L Memecik",
+    "online": "1080",
+    "supermarket": "870",
+    "webSitesi": "1270",
+    "tarih": "2025-09-02"
+  },
+  {
+    "id": 1758615743107,
+    "brand": "Komili",
+    "tanim": "1L Memecik",
+    "online": "1090",
+    "supermarket": "880",
+    "webSitesi": "1285",
+    "tarih": "2025-09-09"
+  },
+  {
+    "id": 1758615743107,
+    "brand": "Komili",
+    "tanim": "1L Memecik",
+    "online": "1100",
+    "supermarket": "890",
+    "webSitesi": "1299",
+    "tarih": "2025-09-16"
+  },
+  {
+    "id": 1758615743107,
+    "brand": "Komili",
+    "tanim": "1L Memecik",
+    "online": "1120",
+    "supermarket": "900",
+    "webSitesi": "1310",
+    "tarih": "2025-09-23"
+  }
+]

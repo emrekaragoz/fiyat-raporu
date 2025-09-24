@@ -1,13 +1,33 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="tr"> <!-- Dil tercihinizi 'tr' olarak güncelledim -->
   <head>
     <meta charset="UTF-8" />
+    <!--
+      Vite, build sırasında bu ikonu doğru yola göre değiştirecektir.
+      public/vite.svg dosyasını değiştirebilir veya kendi ikonunuzu public klasörüne koyup
+      href değerini güncelleyebilirsiniz.
+    -->
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>fiyat-raporu</title>
+    <title>Fiyat Raporu</title> <!-- Başlık -->
+    <!--
+      Tailwind CSS'i CDN ile yüklemek gerekli değildir çünkü
+      projeyi kurarken npm/yarn/pnpm ile yüklediniz ve
+      src/index.css içindeki @tailwind direktifleri ile entegre edildi.
+      Ancak isterseniz buraya ekleyebilirsiniz. Genellikle önerilmez.
+    -->
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
   </head>
   <body>
+    <!--
+      React uygulamanızın bağlanacağı (mount) kök DOM elemanı.
+      Bu ID, src/main.jsx içinde ReactDOM.createRoot'a parametre olarak geçilir.
+    -->
     <div id="root"></div>
+    <!--
+      Vite, build sırasında bu satırı doğru şekilde işleyecek ve
+      uygulamanızın giriş noktası olan src/main.jsx'i yükleyecektir.
+    -->
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
