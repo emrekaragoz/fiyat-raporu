@@ -3,11 +3,12 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://emrekaragoz.github.io/fiyat-raporu",
   "scripts": {
-    "lint": "eslint .",
-    "preview": "vite preview",
     "dev": "vite",
     "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },
