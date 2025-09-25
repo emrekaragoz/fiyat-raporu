@@ -13,6 +13,7 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
+import * as XLSX from 'xlsx';
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -213,7 +214,34 @@ export default function App() {
   useEffect(() => {
     updateTopGainersLosers();
   }, [reportList]);
+ const handleSaveReportExcel = () => {
+    if (reportList.length === 0) {
+      showNotification('Kaydedilecek veri bulunmuyor. Lütfen önce listeye ekleme yapın.', 'error');
+      return;
+    }
 
+    // Verileri XLSX formatına uygun diziye dönüştür
+    const worksheetData = reportList.map(item => ({
+      Marka: item.brand,
+      Tanım: item.tanim,
+      "Online Fiyat": item.online || '', // Boşsa boş bırak
+      "Süpermarket Fiyatı": item.supermarket || '',
+      "Web Sitesi Fiyatı": item.webSitesi || '',
+      Tarih: item.tarih
+    }));
+
+    // Yeni bir workbook (çalışma kitabı) oluştur
+    const wb = XLSX.utils.book_new();
+    // Verilerden bir worksheet (çalışma sayfası) oluştur
+    const ws = XLSX.utils.json_to_sheet(worksheetData);
+    // Worksheet'i workbook'a ekle
+    XLSX.utils.book_append_sheet(wb, ws, "Fiyat Raporu");
+
+    // Workbook'u binary string (XLSX formatında) olarak yaz
+    XLSX.writeFile(wb, 'fiyat_raporu.xlsx'); // Doğrudan .xlsx uzantısıyla indir
+
+    showNotification('Rapor başarıyla "fiyat_raporu.xlsx" olarak indirildi!', 'success');
+  };
   // Dropdown değiştiğinde markayı günceller
   const handleBrandChange = (e) => {
     setSelectedBrand(e.target.value);
@@ -778,6 +806,15 @@ const updateTopGainersLosers = () => {
                   </button>
                 </div>
               ))}
+            </div>
+            {/* --- Yeni Excel Butonu (Tablo Altında Sağda) --- */}
+            <div className="mt-4 flex justify-end"> {/* mt-4: biraz üst boşluk, justify-end: sağa yaslar */}
+              <button
+                onClick={handleSaveReportExcel}
+                className="bg-gradient-to-b from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors border border-green-700 shadow-md"
+              >
+                Tabloyu Excel'e Aktar
+              </button>
             </div>
           </div>
         )}
