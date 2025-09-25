@@ -28,34 +28,145 @@ const brandData = {
   GaiaOliva: {
     logo: 'https://placehold.co/100x40/000000/FFFFFF?text=GaiaOliva',
     links: {
-      Trendyol: 'https://www.trendyol.com/sr?q=gaiaoliva',
-      Hepsiburada: 'https://www.hepsiburada.com/ara?q=gaiaoliva',
-      Amazon: 'https://www.amazon.com.tr/s?k=gaiaoliva',
-      Migros: 'https://www.migros.com.tr/arama?q=gaiaoliva',
-      Carrefoursa: 'https://www.carrefoursa.com/search?q=gaiaoliva',
-      WebSitesi: 'https://www.gaiaoliva.com/',
+      Trendyol: '  https://www.trendyol.com/sr?q=gaiaoliva',
+      Hepsiburada: '  https://www.hepsiburada.com/ara?q=gaiaoliva',
+      Amazon: '  https://www.amazon.com.tr/s?k=gaiaoliva',
+      Migros: '  https://www.migros.com.tr/arama?q=gaiaoliva',
+      Carrefoursa: '  https://www.carrefoursa.com/search?q=gaiaoliva',
+      WebSitesi: '  https://www.gaiaoliva.com/  ',
     },
   },
   Komili: {
     logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Komili',
     links: {
-      Trendyol: 'https://www.trendyol.com/sr?q=komili',
-      Hepsiburada: 'https://www.hepsiburada.com/ara?q=komili',
-      Amazon: 'https://www.amazon.com.tr/s?k=komili',
-      Migros: 'https://www.migros.com.tr/arama?q=komili',
-      Carrefoursa: 'https://www.carrefoursa.com/search?q=komili',
-      WebSitesi: 'https://www.komili.com.tr/',
+      Trendyol: '  https://www.trendyol.com/sr?q=komili',
+      Hepsiburada: '  https://www.hepsiburada.com/ara?q=komili',
+      Amazon: '  https://www.amazon.com.tr/s?k=komili',
+      Migros: '  https://www.migros.com.tr/arama?q=komili',
+      Carrefoursa: '  https://www.carrefoursa.com/search?q=komili',
+      WebSitesi: '  https://www.komili.com.tr/  ',
     },
   },
   Marmarabirlik: {
     logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Marmarabirlik',
     links: {
-      Trendyol: 'https://www.trendyol.com/sr?q=marmarabirlik',
-      Hepsiburada: 'https://www.hepsiburada.com/ara?q=marmarabirlik',
-      Amazon: 'https://www.amazon.com.tr/s?k=marmarabirlik',
-      Migros: 'https://www.migros.com.tr/arama?q=marmarabirlik',
-      Carrefoursa: 'https://www.carrefoursa.com/search?q=marmarabirlik',
-      WebSitesi: 'https://www.marmarabirlik.com.tr/',
+      Trendyol: '  https://www.trendyol.com/sr?q=marmarabirlik',
+      Hepsiburada: '  https://www.hepsiburada.com/ara?q=marmarabirlik',
+      Amazon: '  https://www.amazon.com.tr/s?k=marmarabirlik',
+      Migros: '  https://www.migros.com.tr/arama?q=marmarabirlik',
+      Carrefoursa: '  https://www.carrefoursa.com/search?q=marmarabirlik',
+      WebSitesi: '  https://www.marmarabirlik.com.tr/  ',
+    },
+  },
+  // Yeni markalar eklendi
+  Kozoliv: {
+    logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Kozoliv',
+    links: {
+      Trendyol: '  https://www.trendyol.com/sr?q=kozoliv',
+      Hepsiburada: '  https://www.hepsiburada.com/ara?q=kozoliv',
+      Amazon: '  https://www.amazon.com.tr/s?k=kozoliv',
+      Migros: '  https://www.migros.com.tr/arama?q=kozoliv',
+      Carrefoursa: '  https://www.carrefoursa.com/search?q=kozoliv',
+      WebSitesi: '  #  ', // Web sitesi bilgisi yoksa placeholder kullan
+    },
+  },
+  Asiltane: {
+    logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Asiltane',
+    links: {
+      Trendyol: '  https://www.trendyol.com/sr?q=asiltane',
+      Hepsiburada: '  https://www.hepsiburada.com/ara?q=asiltane',
+      Amazon: '  https://www.amazon.com.tr/s?k=asiltane',
+      Migros: '  https://www.migros.com.tr/arama?q=asiltane',
+      Carrefoursa: '  https://www.carrefoursa.com/search?q=asiltane',
+      WebSitesi: '  #  ',
+    },
+  },
+  Grandpa: {
+    logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Grandpa',
+    links: {
+      Trendyol: '  https://www.trendyol.com/sr?q=grandpa',
+      Hepsiburada: '  https://www.hepsiburada.com/ara?q=grandpa',
+      Amazon: '  https://www.amazon.com.tr/s?k=grandpa',
+      Migros: '  https://www.migros.com.tr/arama?q=grandpa',
+      Carrefoursa: '  https://www.carrefoursa.com/search?q=grandpa',
+      WebSitesi: '  #  ',
+    },
+  },
+  Monteida: {
+    logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Monteida',
+    links: {
+      Trendyol: '  https://www.trendyol.com/sr?q=monteida',
+      Hepsiburada: '  https://www.hepsiburada.com/ara?q=monteida',
+      Amazon: '  https://www.amazon.com.tr/s?k=monteida',
+      Migros: '  https://www.migros.com.tr/arama?q=monteida',
+      Carrefoursa: '  https://www.carrefoursa.com/search?q=monteida',
+      WebSitesi: '  #  ',
+    },
+  },
+  Tariş: {
+    logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Tari%C5%9F',
+    links: {
+      Trendyol: '  https://www.trendyol.com/sr?q=tari%C5%9F',
+      Hepsiburada: '  https://www.hepsiburada.com/ara?q=tari%C5%9F',
+      Amazon: '  https://www.amazon.com.tr/s?k=tari%C5%9F',
+      Migros: '  https://www.migros.com.tr/arama?q=tari%C5%9F',
+      Carrefoursa: '  https://www.carrefoursa.com/search?q=tari%C5%9F',
+      WebSitesi: '  #  ',
+    },
+  },
+  Kristal: {
+    logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Kristal',
+    links: {
+      Trendyol: '  https://www.trendyol.com/sr?q=kristal',
+      Hepsiburada: '  https://www.hepsiburada.com/ara?q=kristal',
+      Amazon: '  https://www.amazon.com.tr/s?k=kristal',
+      Migros: '  https://www.migros.com.tr/arama?q=kristal',
+      Carrefoursa: '  https://www.carrefoursa.com/search?q=kristal',
+      WebSitesi: '  #  ',
+    },
+  },
+  Yudum: {
+    logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Yudum',
+    links: {
+      Trendyol: '  https://www.trendyol.com/sr?q=yudum',
+      Hepsiburada: '  https://www.hepsiburada.com/ara?q=yudum',
+      Amazon: '  https://www.amazon.com.tr/s?k=yudum',
+      Migros: '  https://www.migros.com.tr/arama?q=yudum',
+      Carrefoursa: '  https://www.carrefoursa.com/search?q=yudum',
+      WebSitesi: '  #  ',
+    },
+  },
+  Kırlangıç: {
+    logo: 'https://placehold.co/100x40/000000/FFFFFF?text=K%C4%B1rlang%C4%B1%C3%A7',
+    links: {
+      Trendyol: '  https://www.trendyol.com/sr?q=k%C4%B1rlang%C4%B1%C3%A7',
+      Hepsiburada: '  https://www.hepsiburada.com/ara?q=k%C4%B1rlang%C4%B1%C3%A7',
+      Amazon: '  https://www.amazon.com.tr/s?k=k%C4%B1rlang%C4%B1%C3%A7',
+      Migros: '  https://www.migros.com.tr/arama?q=k%C4%B1rlang%C4%B1%C3%A7',
+      Carrefoursa: '  https://www.carrefoursa.com/search?q=k%C4%B1rlang%C4%B1%C3%A7',
+      WebSitesi: '  #  ',
+    },
+  },
+  Kavlak: {
+    logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Kavlak',
+    links: {
+      Trendyol: '  https://www.trendyol.com/sr?q=kavlak',
+      Hepsiburada: '  https://www.hepsiburada.com/ara?q=kavlak',
+      Amazon: '  https://www.amazon.com.tr/s?k=kavlak',
+      Migros: '  https://www.migros.com.tr/arama?q=kavlak',
+      Carrefoursa: '  https://www.carrefoursa.com/search?q=kavlak',
+      WebSitesi: '  #  ',
+    },
+  },
+  Ayolis: {
+    logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Ayolis',
+    links: {
+      Trendyol: '  https://www.trendyol.com/sr?q=ayolis',
+      Hepsiburada: '  https://www.hepsiburada.com/ara?q=ayolis',
+      Amazon: '  https://www.amazon.com.tr/s?k=ayolis',
+      Migros: '  https://www.migros.com.tr/arama?q=ayolis',
+      Carrefoursa: '  https://www.carrefoursa.com/search?q=ayolis',
+      WebSitesi: '  #  ',
     },
   },
 };
@@ -76,23 +187,32 @@ export default function App() {
   const [selectedDateTab, setSelectedDateTab] = useState(''); // Add this new state
   const [reportList, setReportList] = useState([]);
   const [notification, setNotification] = useState('');
+  // Yeni state'ler
+  const [topGainers, setTopGainers] = useState([]);
+  const [topLosers, setTopLosers] = useState([]);
 
   const currentBrand = brandData[selectedBrand];
-useEffect(() => {
-  // Dosyadan gelen veriyi state'e set et
-  setReportList(dataFromFile);
-  
-  // Set default selected tab to today's date if available, otherwise to first date
-  if (dataFromFile.length > 0) {
-    const today = new Date().toISOString().split('T')[0];
-    const dates = [...new Set(dataFromFile.map(item => item.tarih))];
-    if (dates.includes(today)) {
-      setSelectedDateTab(today);
-    } else {
-      setSelectedDateTab(dates.sort((a, b) => new Date(b) - new Date(a))[0]);
+
+  useEffect(() => {
+    // Dosyadan gelen veriyi state'e set et
+    setReportList(dataFromFile);
+    
+    // Set default selected tab to today's date if available, otherwise to first date
+    if (dataFromFile.length > 0) {
+      const today = new Date().toISOString().split('T')[0];
+      const dates = [...new Set(dataFromFile.map(item => item.tarih))];
+      if (dates.includes(today)) {
+        setSelectedDateTab(today);
+      } else {
+        setSelectedDateTab(dates.sort((a, b) => new Date(b) - new Date(a))[0]);
+      }
     }
-  }
-}, []);
+  }, []);
+
+  // useEffect: reportList değiştiğinde istatistikleri hesapla
+  useEffect(() => {
+    updateTopGainersLosers();
+  }, [reportList]);
 
   // Dropdown değiştiğinde markayı günceller
   const handleBrandChange = (e) => {
@@ -231,6 +351,185 @@ const generateChartData = () => {
   setShowChart(true);
   // useEffect otomatik olarak grafiği güncelleyecek
 };
+
+const calculatePriceChanges = () => {
+  if (reportList.length === 0) return [];
+
+  // Tarihleri benzersiz ve azalan sırada al
+  const sortedUniqueDates = [...new Set(reportList.map(item => item.tarih))].sort((a, b) => new Date(b) - new Date(a));
+  console.log("Tüm benzersiz tarihler (azalan sırada):", sortedUniqueDates);
+
+  if (sortedUniqueDates.length < 2) {
+    console.log("Yeterli tarih verisi yok (en az 2 farklı tarih gerekli).");
+    return [];
+  }
+
+  const latestDate = sortedUniqueDates[0];
+  const referenceDate = sortedUniqueDates[1]; // En güncel tarihden bir sonraki, olabilir
+
+  // 1 hafta (7 gün) öncesini hesapla
+  const latestDateObj = new Date(latestDate);
+  const targetDateObj = new Date(latestDateObj);
+  targetDateObj.setDate(latestDateObj.getDate() - 7);
+  const targetDateString = targetDateObj.toISOString().split('T')[0]; // YYYY-MM-DD formatına çevir
+
+  console.log(`En güncel tarih: ${latestDate}`);
+  console.log(`Hedef tarih (1 hafta önce): ${targetDateString}`);
+
+  // Hedef tarihe en yakın, hedef tarihten küçük veya eşit olan tarihi bul
+  let previousDate = null;
+  for (let i = 1; i < sortedUniqueDates.length; i++) { // 0. indeks en yeni, onu atlıyoruz
+    const currentDate = sortedUniqueDates[i];
+    if (new Date(currentDate) <= targetDateObj) {
+      previousDate = currentDate;
+      console.log(`Bulunan uygun tarih: ${previousDate}`);
+      break;
+    }
+  }
+
+  if (!previousDate) {
+    console.log(`"${targetDateString}" tarihine veya daha önceki bir tarihe ait veri bulunamadı.`);
+    // Alternatif olarak, sadece son iki farklı tarihle hesaplamak isterseniz:
+    // previousDate = referenceDate;
+    // console.log(`Alternatif olarak son iki farklı tarih kullanılıyor: ${latestDate} ve ${previousDate}`);
+    return [];
+  }
+
+  console.log(`Fiyat değişiklikleri hesaplanıyor: ${previousDate} -> ${latestDate}`);
+
+  // Ürünleri (brand + tanim) grupla ve belirtilen iki tarih için fiyatını al
+  const productMap = new Map();
+  reportList.forEach(item => {
+    const key = `${item.brand}-${item.tanim}-${item.tarih}`;
+    if (item.tarih === latestDate || item.tarih === previousDate) {
+      if (!productMap.has(key)) {
+        console.log("sss key:", key, "Tarih:", item.tarih);
+        productMap.set(key, { brand: item.brand, tanim: item.tanim, [item.tarih]: item });
+      } else {
+        console.log("get key:", key, "Tarih:", item.tarih);
+        productMap.get(key)[item.tarih] = item;
+      }
+    }
+  });
+
+  console.log("Oluşturulan productMap:", productMap); // Hata ayıklama
+
+  const priceChanges = [];
+  // productMap'teki tüm girdileri gez
+  for (const [key, productData] of productMap.entries()) {
+    // Anahtarı '-' ile böl ve ilk iki parçayı al (brand ve tanim)
+    const [itemBrand, itemTanim] = key.split('-').slice(0, 2).join('-').split('-', 2); // Bu, brand-tanim kısmını alır
+
+    // Bu ürünün (brand-tanim) hem latestDate hem de previousDate için verisi olup olmadığını kontrol et
+    const latestItem = productData[latestDate];
+    const previousItem = productData[previousDate];
+
+    // Eğer bu girdi hem latestDate hem de previousDate verisi içeriyorsa (yani key hem latestDate hem previousDate içeriyorsa)
+    // Bu senaryoda, bir girdi sadece 1 tarihe ait veri içerdiği için bu kontrol geçersiz olur.
+    // Doğru yaklaşım: productMap'te sadece latestDate içeren bir anahtarı al, sonra onunla eşleşen previousDate içeren başka bir anahtar aramak.
+
+    // Daha iyi bir yaklaşım:
+    // 1. latestDate'e ait tüm anahtarları bul
+    const latestDateKeys = [...productMap.keys()].filter(k => k.endsWith(latestDate));
+
+    // 2. Her latestDate anahtarı için, aynı ürünün (aynı brand-tanim kısmı) previousDate'e ait anahtarını bul
+    latestDateKeys.forEach(latestKey => {
+        const [latestBrand, latestTanim] = latestKey.split('-').slice(0, -1).join('-').split('-', 2); // Son parçayı (tarih) at
+        const targetPreviousKey = `${latestBrand}-${latestTanim}-${previousDate}`;
+
+        const latestItem = productMap.get(latestKey)[latestDate]; // latestKey'in tarih alanından latestDate verisini al
+        const previousItem = productMap.get(targetPreviousKey)?.[previousDate]; // targetPreviousKey varsa, onun tarih alanından previousDate verisini al
+
+        console.log(`İşlenen latestKey: ${latestKey}, targetPreviousKey: ${targetPreviousKey}`);
+        console.log(`  latestItem var mı? ${!!latestItem}, previousItem var mı? ${!!previousItem}`);
+
+        if (latestItem && previousItem) {
+            console.log(`    ${latestKey} ve ${targetPreviousKey} için karşılaştırma yapılacak.`);
+            // Fiyat türlerini kontrol et (online, supermarket, webSitesi)
+            ['online', 'supermarket', 'webSitesi'].forEach(priceType => {
+                const latestPrice = parseFloat(latestItem[priceType]);
+                const previousPrice = parseFloat(previousItem[priceType]);
+
+                if (!isNaN(latestPrice) && !isNaN(previousPrice) && previousPrice !== 0) {
+                    const change = latestPrice - previousPrice;
+                    const changePercentage = ((change / previousPrice) * 100).toFixed(2);
+
+                    priceChanges.push({
+                        brand: latestItem.brand,
+                        tanim: latestItem.tanim,
+                        priceType: priceType,
+                        latestDate: latestDate,
+                        previousDate: previousDate,
+                        latestPrice: latestPrice,
+                        previousPrice: previousPrice,
+                        change: change,
+                        changePercentage: parseFloat(changePercentage)
+                    });
+                }
+            });
+        } else {
+            console.log(`    ${latestKey} için karşılaştırma YAPILAMADI (eksik tarih verisi).`);
+        }
+    });
+  }
+
+
+  console.log("Hesaplanan fiyat değişiklikleri:", priceChanges); // Hata ayıklama
+  return priceChanges;
+};
+
+// Yeni fonksiyon: En çok artan ve düşen ürünleri hesapla ve state'e set et
+const updateTopGainersLosers = () => {
+  const changes = calculatePriceChanges();
+  if (changes.length === 0) {
+    setTopGainers([]);
+    setTopLosers([]);
+    return;
+  }
+
+  // Her ürün (brand + tanim) için en çok artışı ve en çok düşüşü bul
+  const uniqueProductsMap = new Map();
+
+  changes.forEach(item => {
+    const productKey = `${item.brand}-${item.tanim}`;
+    const existingEntry = uniqueProductsMap.get(productKey);
+
+    // Artış mı?
+    if (item.change > 0) {
+      // Henüz bu ürün için bir giriş yoksa veya bu ürünün daha büyük bir artışı varsa, güncelle
+      if (!existingEntry || (existingEntry.change > 0 && item.changePercentage > existingEntry.changePercentage)) {
+        uniqueProductsMap.set(productKey, { ...item, type: 'gainer' });
+      }
+    }
+    // Düşüş mü?
+    else if (item.change < 0) {
+      // Henüz bu ürün için bir giriş yoksa veya bu ürünün daha büyük bir düşüşü (daha negatif) varsa, güncelle
+      if (!existingEntry || (existingEntry.change < 0 && item.changePercentage < existingEntry.changePercentage)) { // Daha negatif = daha fazla düşüş
+        uniqueProductsMap.set(productKey, { ...item, type: 'loser' });
+      }
+    }
+  });
+
+  // Map'ten tekrarsız verileri al
+  const uniqueChanges = Array.from(uniqueProductsMap.values());
+
+  // En çok artanları bul (changePercentage'e göre azalan sırada)
+  const gainers = uniqueChanges
+    .filter(item => item.type === 'gainer') // Sadece artış olanları al
+    .sort((a, b) => b.changePercentage - a.changePercentage)
+    .slice(0, 5); // İlk 5 tanesini al
+
+  // En çok düşenleri bul (changePercentage'e göre artan sırada - en negatif olan en başa)
+  const losers = uniqueChanges
+    .filter(item => item.type === 'loser') // Sadece düşüş olanları al
+    .sort((a, b) => a.changePercentage - b.changePercentage) // En negatif (en çok düşen) en başa
+    .slice(0, 5); // İlk 5 tanesini al
+
+  setTopGainers(gainers);
+  setTopLosers(losers);
+};
+
+
   // Geçici listeye fiyatları kaydeder
   const handleSaveToList = async (e) => {
   e.preventDefault();
@@ -239,15 +538,15 @@ const generateChartData = () => {
     return;
   }
   
-  const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD formatında bugünün tarihi
-  
+  const datesInData = [...new Set(reportList.map(item => item.tarih))].sort((a, b) => new Date(b) - new Date(a));
+    const currentDate = datesInData.length > 0 ? datesInData[0] : new Date().toISOString().split('T')[0]; // Yeni satır
 
-  const newEntry = {
-    id: Date.now(),
-    brand: selectedBrand,
-    ...priceInputs,
-    tarih: today // Tarih ekle
-  };
+    const newEntry = {
+      id: Date.now(), // veya daha iyi bir ID sistemi düşünülebilir
+      brand: selectedBrand,
+      ...priceInputs,
+      tarih: currentDate // Tarih ekle
+    };
   
   const updatedList = [...reportList, newEntry];
   setReportList(updatedList);
@@ -304,45 +603,42 @@ const generateChartData = () => {
       </header>
 
       <main className="container mx-auto p-4 md:p-8">
-        {/* --- Marka Seçim Alanı --- */}
+         {/* --- Marka Seçim Alanı ve Hızlı Erişim Linkleri --- */}
         <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-          <div className="flex flex-col sm:flex-row items-center gap-6">
-            <select
-              value={selectedBrand}
-              onChange={handleBrandChange}
-              className="bg-gray-50 w-full sm:w-auto flex-grow border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-all"
-            >
-              {Object.keys(brandData).map((brand) => (
-                <option key={brand} value={brand}>
-                  {brand}
-                </option>
-              ))}
-            </select>
-            <div className="bg-white p-2 rounded-md h-[56px] flex items-center justify-center border">
-              <img
-                src={currentBrand.logo}
-                alt={`${selectedBrand} Logosu`}
-                className="h-full object-contain"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* --- Link Butonları --- */}
-        <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800">Hızlı Erişim Linkleri</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
-            {Object.entries(currentBrand.links).map(([name, link]) => (
-              <a
-                key={name}
-                href={link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-gray-200 text-center hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg transition-all border border-gray-300 shadow-sm"
+          <h2 className="text-xl font-semibold mb-4 text-gray-800">Marka Seçimi</h2>
+          <div className="flex flex-col lg:flex-row gap-6"> {/* lg:flex-row: büyük ekranlarda yatay hizala */}
+            {/* Marka Dropdown */}
+            <div className="flex-1"> {/* Flex-grow: kalan alanı kaplar */}
+              <select
+                value={selectedBrand}
+                onChange={handleBrandChange}
+                className="bg-gray-50 w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-all"
               >
-                {name}
-              </a>
-            ))}
+                {Object.keys(brandData).map((brand) => (
+                  <option key={brand} value={brand}>
+                    {brand}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Hızlı Erişim Linkleri */}
+            <div className="w-full lg:w-auto"> {/* lg:w-auto: büyük ekranda otomatik boyut alır */}
+              <h2 className="text-xl font-semibold mb-2 lg:mb-4 text-gray-800 lg:hidden">Hızlı Erişim Linkleri</h2> {/* Mobilde başlık */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+                {Object.entries(currentBrand.links).map(([name, link]) => (
+                  <a
+                    key={name}
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-gray-200 text-center hover:bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-lg transition-all border border-gray-300 shadow-sm"
+                  >
+                    {name}
+                  </a>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -412,6 +708,8 @@ const generateChartData = () => {
             </button>
           </form>
         </div>
+
+        {/* --- Yeni Panel: En çok artış gösteren ürünler --- */}
 
         {/* --- Kaydedilenler Listesi with Tabs --- */}
         {reportList.length > 0 && (
@@ -484,6 +782,48 @@ const generateChartData = () => {
           </div>
         )}
 
+        <div className="bg-white p-6 rounded-lg shadow-md mb-8">
+          <h2 className="text-xl font-semibold mb-4 text-green-700">📈 En çok artış gösteren ürünler</h2>
+          {topGainers.length > 0 ? (
+            <div className="space-y-2 max-h-60 overflow-y-auto">
+              {topGainers.map((item, index) => (
+                <div key={`${item.brand}-${item.tanim}-${item.priceType}-${index}`} className="flex justify-between items-center bg-green-50 p-3 rounded border border-green-200">
+                  <div>
+                    <span className="font-medium text-gray-800">{item.brand}</span> - <span className="text-gray-600">{item.tanim}</span> (<span className="text-sm text-gray-500">{item.priceType}</span>)
+                  </div>
+                  <div className="text-right">
+                    <div className="text-green-700 font-semibold">{item.latestPrice.toFixed(2)} TL</div>
+                    <div className="text-xs text-green-600">({item.change > 0 ? '+' : ''}{item.change.toFixed(2)} TL, +%{item.changePercentage.toFixed(2)})</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-gray-500 text-center py-4">Veri bulunamadı veya yeterli tarih yok.</p>
+          )}
+        </div>
+
+        {/* --- Yeni Panel: En çok düşüş gösteren ürünler --- */}
+        <div className="bg-white p-6 rounded-lg shadow-md mb-8">
+          <h2 className="text-xl font-semibold mb-4 text-red-700">📉 En çok düşüş gösteren ürünler</h2>
+          {topLosers.length > 0 ? (
+            <div className="space-y-2 max-h-60 overflow-y-auto">
+              {topLosers.map((item, index) => (
+                <div key={`${item.brand}-${item.tanim}-${item.priceType}-${index}`} className="flex justify-between items-center bg-red-50 p-3 rounded border border-red-200">
+                  <div>
+                    <span className="font-medium text-gray-800">{item.brand}</span> - <span className="text-gray-600">{item.tanim}</span> (<span className="text-sm text-gray-500">{item.priceType}</span>)
+                  </div>
+                  <div className="text-right">
+                    <div className="text-red-700 font-semibold">{item.latestPrice.toFixed(2)} TL</div>
+                    <div className="text-xs text-red-600">({item.change.toFixed(2)} TL, %{item.changePercentage.toFixed(2)})</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-gray-500 text-center py-4">Veri bulunamadı veya yeterli tarih yok.</p>
+          )}
+        </div>
         {/* --- Raporu Kaydet Butonu --- */}
         {/* --- Raporu Kaydet ve Grafik Butonları --- */}
 <div className="text-center mt-10 space-y-4 md:space-y-0 md:space-x-4">
