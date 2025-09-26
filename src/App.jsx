@@ -557,44 +557,40 @@ const updateTopGainersLosers = () => {
   setTopLosers(losers);
 };
 
-
-  // Geçici listeye fiyatları kaydeder
-  const handleSaveToList = async (e) => {
-  e.preventDefault();
-  if (!priceInputs.online && !priceInputs.supermarket && !priceInputs.webSitesi) {
-    showNotification('Lütfen en az bir fiyat alanı doldurun.', 'error');
-    return;
-  }
-  
-  const datesInData = [...new Set(reportList.map(item => item.tarih))].sort((a, b) => new Date(b) - new Date(a));
-    const currentDate = datesInData.length > 0 ? datesInData[0] : new Date().toISOString().split('T')[0]; // Yeni satır
+const handleSaveToList = async (e) => {
+    e.preventDefault();
+    if (!priceInputs.online && !priceInputs.supermarket && !priceInputs.webSitesi) {
+      showNotification('Lütfen en az bir fiyat alanı doldurun.', 'error');
+      return;
+    }
+    const today = new Date().toISOString().split('T')[0]; // Bugünün tarihi YYYY-MM-DD formatında
 
     const newEntry = {
       id: Date.now(), // veya daha iyi bir ID sistemi düşünülebilir
       brand: selectedBrand,
       ...priceInputs,
-      tarih: currentDate // Tarih ekle
+      tarih: today // Tarih ekle
     };
-  
-  const updatedList = [...reportList, newEntry];
-  setReportList(updatedList);
-  setPriceInputs({ tanim: '', online: '', supermarket: '', webSitesi: '' });
-  showNotification(`${selectedBrand} için fiyatlar listeye eklendi.`, 'success');
 
-  try {
-    await saveDataToFile(updatedList);
-  } catch (error) {
-    console.error('Veri kaydedilirken hata oluştu:', error);
-    showNotification('Veri kaydedilemedi. Lütfen tekrar deneyin.', 'error');
-  }
-};
-
-  // Listeden bir öğeyi siler
-  const handleDeleteItem = (idToDelete) => {
-    setReportList((prevList) => prevList.filter((item) => item.id !== idToDelete));
-    showNotification('Öğe listeden başarıyla silindi.', 'success');
+    const updatedList = [...reportList, newEntry];
+    setReportList(updatedList); // reportList state'ini güncelle
+    setSelectedDateTab(today); // Yeni eklenen verinin görüneceği tab'ı seç
+    setPriceInputs({ tanim: '', online: '', supermarket: '', webSitesi: '' }); // Formu temizle
+    showNotification(`${selectedBrand} için fiyatlar listeye eklendi. Tarih: ${today}`, 'success');
   };
 
+  // Listeden bir öğeyi siler (sadece en son tarihli tablodan)
+  const handleDeleteItem = (idToDelete) => {
+    const today = new Date().toISOString().split('T')[0]; // Bugünün tarihi
+    const itemToDelete = reportList.find(item => item.id === idToDelete);
+
+    if (itemToDelete && itemToDelete.tarih === today) {
+      setReportList((prevList) => prevList.filter((item) => item.id !== idToDelete));
+      showNotification('Öğe listeden başarıyla silindi.', 'success');
+    } else {
+      showNotification('Sadece bugün tarihli veriler silinebilir.', 'error');
+    }
+  };
   // Bildirim gösterme fonksiyonu
   const showNotification = (message, type) => {
     setNotification({ message, type });
@@ -669,68 +665,65 @@ const updateTopGainersLosers = () => {
             </div>
           </div>
         </div>
-
-        {/* --- Fiyat Giriş Formu --- */}
-        <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-          <h2 className="text-xl font-semibold mb-4 text-gray-800">Fiyat Bilgisi Ekle</h2>
-          <form onSubmit={handleSaveToList} className="grid grid-cols-1 md:grid-cols-6 gap-4 items-end">
+<div className="bg-white p-4 rounded-lg shadow-md mb-6">
+          <h2 className="text-lg font-semibold mb-3 text-gray-800">Fiyat Bilgisi Ekle</h2>
+          <form onSubmit={handleSaveToList} className="grid grid-cols-1 md:grid-cols-6 gap-3 items-end">
             <div className="md:col-span-1">
-              <label className="block text-sm font-medium mb-1 text-gray-600">Marka</label>
+              <label className="block text-xs font-medium mb-1 text-gray-600">Marka</label>
               <input
                 type="text"
                 value={selectedBrand}
                 readOnly
-                className="w-full bg-gray-100 border border-gray-300 rounded-md px-3 py-2 cursor-not-allowed"
+                className="w-full bg-gray-100 border border-gray-300 rounded-md px-2 py-1.5 cursor-not-allowed text-sm"
               />
             </div>
-            {/* --- YENİ TANIM INPUTU --- */}
             <div className="md:col-span-1">
-              <label className="block text-sm font-medium mb-1 text-gray-600">Tanım</label>
+              <label className="block text-xs font-medium mb-1 text-gray-600">Tanım</label>
               <input
                 type="text"
                 name="tanim"
                 placeholder="örn: 5L Teneke"
                 value={priceInputs.tanim}
                 onChange={handleInputChange}
-                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
+                className="w-full bg-white border border-gray-300 rounded-md px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-sm"
               />
             </div>
             <div className="md:col-span-1">
-              <label className="block text-sm font-medium mb-1 text-gray-600">Online Fiyat</label>
+              <label className="block text-xs font-medium mb-1 text-gray-600">Online Fiyat</label>
               <input
                 type="number"
                 name="online"
                 placeholder="örn: 250.50"
                 value={priceInputs.online}
                 onChange={handleInputChange}
-                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
+                className="w-full bg-white border border-gray-300 rounded-md px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-sm"
               />
             </div>
             <div className="md:col-span-1">
-              <label className="block text-sm font-medium mb-1 text-gray-600">Süpermarket Fiyatı</label>
+              <label className="block text-xs font-medium mb-1 text-gray-600">Süpermarket Fiyatı</label>
               <input
                 type="number"
                 name="supermarket"
                 placeholder="örn: 260.00"
                 value={priceInputs.supermarket}
                 onChange={handleInputChange}
-                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
+                className="w-full bg-white border border-gray-300 rounded-md px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-sm"
               />
             </div>
             <div className="md:col-span-1">
-              <label className="block text-sm font-medium mb-1 text-gray-600">Web Sitesi Fiyatı</label>
+              <label className="block text-xs font-medium mb-1 text-gray-600">Web Sitesi Fiyatı</label>
               <input
                 type="number"
                 name="webSitesi"
                 placeholder="örn: 245.90"
                 value={priceInputs.webSitesi}
                 onChange={handleInputChange}
-                className="w-full bg-white border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
+                className="w-full bg-white border border-gray-300 rounded-md px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-sm"
               />
             </div>
             <button
               type="submit"
-              className="w-full md:col-span-1 bg-gradient-to-b from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-gray-900 font-bold py-2 px-4 rounded-lg transition-colors h-[42px] border border-yellow-600 shadow-sm"
+              className="w-full md:col-span-1 bg-gradient-to-b from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-gray-900 font-bold py-1.5 px-3 rounded-lg transition-colors h-[38px] border border-yellow-600 shadow-sm text-sm"
             >
               Listeye Kaydet
             </button>
