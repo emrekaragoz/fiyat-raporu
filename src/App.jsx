@@ -892,261 +892,268 @@ const updateTopGainersLosers = () => {
       )}
 
 {/* --- Grafik Modal --- */}
-{showChart && (
-  <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-    <div className="bg-white rounded-2xl shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden flex flex-col">
-      {/* Header */}
-      <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 border-b border-gray-200">
-        <div className="flex justify-between items-center">
-          <div>
-            <h2 className="text-2xl font-bold text-gray-800">Fiyat Değişim Grafiği</h2>
-            <p className="text-sm text-gray-600 mt-1">Marka fiyat analizleri</p>
-          </div>
-          <button
-            onClick={() => {
-              setShowChart(false);
-              setSelectedChartBrands([]);
-            }}
-            className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors duration-200"
-            aria-label="Kapat"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-      </div>
-
-      {/* Content */}
-      <div className="flex-1 flex overflow-hidden">
-        {/* Brand Selection Panel - Left Side */}
-        <div className="w-80 border-r border-gray-200 bg-gray-50 flex flex-col">
-          <div className="p-4 border-b border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-800">Gösterilecek Markalar</h3>
-            <div className="text-sm text-gray-500 mt-1 bg-white px-2 py-1 rounded-full inline-block text-center">
-              {selectedChartBrands.length === 0 
-                ? "Tümü seçili" 
-                : `${selectedChartBrands.length} seçili`}
-            </div>
-          </div>
-          
-          <div className="flex-1 overflow-y-auto p-4">
-            <div className="space-y-2">
-              {getUniqueBrandsFromData().map(brand => (
-                <label 
-                  key={brand} 
-                  className={`flex items-center space-x-3 cursor-pointer px-3 py-2 rounded-lg transition-all duration-200 ${
-                    selectedChartBrands.includes(brand) 
-                      ? 'bg-blue-100 border border-blue-300' 
-                      : 'bg-white border border-gray-200 hover:bg-gray-50'
-                  }`}
+      {showChart && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 p-0"> {/* Değişiklik: p-4 -> p-0 */}
+          {/* Değişiklik: max-w-screen-xl, max-h-[95vh] kaldırıldı, w-full, h-full eklendi */}
+          <div className="bg-white w-full h-full overflow-hidden flex flex-col">
+            {/* Header */}
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-2 sm:p-3 border-b border-gray-200 flex-shrink-0"> {/* Değişiklik: p-4 sm:p-6 -> p-2 sm:p-3, flex-shrink-0 eklendi */}
+              <div className="flex justify-between items-center">
+                <div>
+                  <h2 className="text-lg sm:text-xl font-bold text-gray-800">Fiyat Değişim Grafiği</h2>
+                  <p className="text-xs sm:text-sm text-gray-600 mt-0.5">Marka fiyat analizleri</p>
+                </div>
+                <button
+                  onClick={() => {
+                    setShowChart(false);
+                    setSelectedChartBrands([]); // Modal kapandığında seçimi temizle
+                  }}
+                  className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors duration-200"
+                  aria-label="Kapat"
                 >
-                  <input
-                    type="checkbox"
-                    checked={selectedChartBrands.includes(brand)}
-                    onChange={(e) => {
-                      if (e.target.checked) {
-                        setSelectedChartBrands(prev => [...prev, brand]);
-                      } else {
-                        setSelectedChartBrands(prev => prev.filter(b => b !== brand));
-                      }
-                    }}
-                    className="w-4 h-4 text-blue-600 rounded focus:ring-blue-500 focus:ring-2"
-                  />
-                  <span className={`font-medium ${
-                    selectedChartBrands.includes(brand) ? 'text-blue-700' : 'text-gray-700'
-                  }`}>
-                    {brand}
-                  </span>
-                </label>
-              ))}
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 sm:h-5 sm:w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
             </div>
-          </div>
-          
-          <div className="p-4 border-t border-gray-200 space-y-2">
-            <button
-              onClick={() => setSelectedChartBrands(getUniqueBrandsFromData())}
-              className="w-full text-sm bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded-lg transition-colors"
-            >
-              Tümünü Seç
-            </button>
-            <button
-              onClick={() => setSelectedChartBrands([])}
-              className="w-full text-sm bg-gray-200 hover:bg-gray-300 text-gray-700 px-3 py-2 rounded-lg transition-colors"
-            >
-              Temizle
-            </button>
-          </div>
-        </div>
 
-        {/* Chart Area - Right Side */}
-        <div className="flex-1 flex flex-col overflow-hidden">
-          <div className="p-4">
-            <div className="bg-white rounded-xl border border-gray-200 p-4 h-full">
-              {chartData && chartData.datasets.length > 0 ? (
-                <div className="h-[500px]"> {/* Increased height from 96 (384px) to 500px */}
-                  <Line 
-                    data={chartData}
-                    options={{
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        plugins: {
-                          legend: {
-                            position: 'top',
-                            labels: {
-                              // Use a function to customize labels
-                              generateLabels: function(chart) {
-                                const datasets = chart.data.datasets;
-                                const uniqueBrands = [...new Set(datasets.map(ds => ds.label.split(' - ')[0]))];
-                                
-                                return uniqueBrands.map(brand => {
-                                  // Find the first dataset for this brand to get its color
-                                  const firstDataset = datasets.find(ds => ds.label.startsWith(brand));
-                                  return {
-                                    text: brand, // Just the brand name
-                                    fillStyle: firstDataset.borderColor,
-                                    strokeStyle: firstDataset.borderColor,
-                                    lineWidth: 2,
-                                    pointStyle: 'circle',
-                                    hidden: false,
-                                    index: datasets.findIndex(ds => ds.label.startsWith(brand))
-                                  };
-                                });
-                              },
-                              usePointStyle: true,
-                              padding: 15,
-                              boxWidth: 10,
-                              font: {
-                                size: 12
-                              }
+            {/* Content */}
+            <div className="flex-1 flex overflow-hidden">
+              {/* Brand Selection Panel - Değişiklik: w-32 md:w-40 lg:w-48 */}
+              <div className="w-32 md:w-40 lg:w-48 border-r border-gray-200 bg-gray-50 flex flex-col flex-shrink-0"> {/* flex-shrink-0 eklendi */}
+                <div className="p-2 sm:p-3 border-b border-gray-200">
+                  <h3 className="text-xs sm:text-sm font-semibold text-gray-800">Markalar</h3>
+                  <div className="text-xs text-gray-500 mt-0.5 bg-white px-1.5 py-0.5 rounded-full inline-block text-center">
+                    {selectedChartBrands.length === 0
+                      ? "0"
+                      : `${selectedChartBrands.length}`}
+                  </div>
+                </div>
+
+                <div className="flex-1 overflow-y-auto p-2 sm:p-3">
+                  <div className="space-y-1">
+                    {getUniqueBrandsFromData().map(brand => (
+                      <label
+                        key={brand}
+                        className={`flex items-center space-x-1 sm:space-x-2 cursor-pointer px-1 py-1 sm:px-2 sm:py-1.5 rounded text-xs ${
+                          selectedChartBrands.includes(brand)
+                            ? 'bg-blue-100 border border-blue-300'
+                            : 'bg-white border border-gray-200 hover:bg-gray-50'
+                        }`}
+                      >
+                        <input
+                          type="checkbox"
+                          checked={selectedChartBrands.includes(brand)}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setSelectedChartBrands(prev => [...prev, brand]);
+                            } else {
+                              setSelectedChartBrands(prev => prev.filter(b => b !== brand));
                             }
-                          },
-                        title: {
-                          display: true,
-                          text: 'Fiyat Değişim Analizi',
-                          font: {
-                            size: 14,
-                            weight: 'bold'
-                          },
-                          padding: {
-                            top: 10,
-                            bottom: 20
-                          }
-                        },
-                        tooltip: {
-                          backgroundColor: 'rgba(0, 0, 0, 0.9)',
-                          titleColor: '#fff',
-                          bodyColor: '#fff',
-                          borderColor: '#4f46e5',
-                          borderWidth: 1,
-                          padding: 12,
-                          cornerRadius: 8,
-                          displayColors: true,
-                          mode: 'index',
-                          intersect: false,
-                          callbacks: {
-                            title: function(tooltipItems) {
-                              // Tarih bilgisini göster
-                              return tooltipItems[0].label;
-                            },
-                            label: function(context) {
-                              const currentValue = context.parsed.y;
-                              const dataset = context.dataset;
-                              const dataIndex = context.dataIndex;
-                              
-                              // Bir önceki değeri bul
-                              let previousValue = null;
-                              if (dataIndex > 0) {
-                                for (let i = dataIndex - 1; i >= 0; i--) {
-                                  if (dataset.data[i] !== null) {
-                                    previousValue = dataset.data[i];
-                                    break;
+                          }}
+                          className="w-3 h-3 text-blue-600 rounded focus:ring-blue-500 focus:ring-1"
+                        />
+                        <span className={`font-medium truncate ${
+                          selectedChartBrands.includes(brand) ? 'text-blue-700' : 'text-gray-700'
+                        }`}>
+                          {brand}
+                        </span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="p-2 sm:p-3 border-t border-gray-200 space-y-1">
+                  <button
+                    onClick={() => setSelectedChartBrands(getUniqueBrandsFromData())}
+                    className="w-full text-xs bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded transition-colors"
+                  >
+                    T
+                  </button>
+                  <button
+                    onClick={() => setSelectedChartBrands([])}
+                    className="w-full text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 rounded transition-colors"
+                  >
+                    -
+                  </button>
+                </div>
+              </div>
+
+              {/* Chart Area - Değişiklik: flex-1 */}
+              <div className="flex-1 flex flex-col overflow-hidden">
+                <div className="p-1 sm:p-2 flex-1"> {/* flex-1 eklendi */}
+                  <div className="bg-white rounded-lg border border-gray-200 p-1 sm:p-2 h-full flex flex-col"> {/* h-full ve flex-col eklendi */}
+                    {chartData && chartData.datasets.length > 0 ? (
+                      <div className="flex-1 relative"> {/* flex-1 eklendi */}
+                        <Line
+                          data={chartData}
+                          options={{
+                            responsive: true, // Grafik container'ı doldursun
+                            maintainAspectRatio: false, // En boy oranını koruma, container'ı tamamen doldursun
+                            plugins: {
+                              legend: {
+                                position: 'top',
+                                labels: {
+                                  generateLabels: function (chart) {
+                                    const datasets = chart.data.datasets;
+                                    const uniqueBrands = [...new Set(datasets.map(ds => ds.label.split(' - ')[0]))];
+
+                                    return uniqueBrands.map(brand => {
+                                      const firstDataset = datasets.find(ds => ds.label.startsWith(brand));
+                                      return {
+                                        text: brand,
+                                        fillStyle: firstDataset.borderColor,
+                                        strokeStyle: firstDataset.borderColor,
+                                        lineWidth: 2,
+                                        pointStyle: 'circle',
+                                        hidden: false,
+                                        index: datasets.findIndex(ds => ds.label.startsWith(brand))
+                                      };
+                                    });
+                                  },
+                                  usePointStyle: true,
+                                  padding: 8, // Azaltıldı
+                                  boxWidth: 6, // Azaltıldı
+                                  font: {
+                                    size: 8 // Azaltıldı
+                                  }
+                                }
+                              },
+                              title: {
+                                display: true,
+                                text: 'Fiyat Değişim Analizi',
+                                font: {
+                                  size: 10, // Azaltıldı
+                                  weight: 'bold'
+                                },
+                                padding: {
+                                  top: 8, // Azaltıldı
+                                  bottom: 12 // Azaltıldı
+                                }
+                              },
+                              tooltip: {
+                                backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                                titleColor: '#fff',
+                                bodyColor: '#fff',
+                                borderColor: '#4f46e5',
+                                borderWidth: 1,
+                                padding: 6, // Azaltıldı
+                                cornerRadius: 4, // Azaltıldı
+                                displayColors: true,
+                                mode: 'index',
+                                intersect: false,
+                                callbacks: {
+                                  title: function (tooltipItems) {
+                                    return tooltipItems[0].label;
+                                  },
+                                  label: function (context) {
+                                    const currentValue = context.parsed.y;
+                                    const dataset = context.dataset;
+                                    const dataIndex = context.dataIndex;
+
+                                    let previousValue = null;
+                                    if (dataIndex > 0) {
+                                      for (let i = dataIndex - 1; i >= 0; i--) {
+                                        if (dataset.data[i] !== null) {
+                                          previousValue = dataset.data[i];
+                                          break;
+                                        }
+                                      }
+                                    }
+
+                                    let differenceText = '';
+                                    let percentageText = '';
+
+                                    if (previousValue !== null && currentValue !== null) {
+                                      const difference = currentValue - previousValue;
+                                      const differenceFormatted = difference.toFixed(2);
+                                      const percentage = ((difference / previousValue) * 100).toFixed(1);
+
+                                      if (difference > 0) {
+                                        differenceText = ` (+${differenceFormatted} TL)`;
+                                        percentageText = ` +%${percentage}`;
+                                      } else if (difference < 0) {
+                                        differenceText = ` (${differenceFormatted} TL)`;
+                                        percentageText = ` -%${Math.abs(percentage)}`;
+                                      } else {
+                                        differenceText = ` (0.00 TL)`;
+                                        percentageText = ` %0.0`;
+                                      }
+                                    }
+
+                                    return `${context.dataset.label}: ${currentValue?.toFixed(2) || 0} TL${differenceText}${percentageText}`;
                                   }
                                 }
                               }
-                              
-                              let differenceText = '';
-                              let percentageText = '';
-                              
-                              if (previousValue !== null && currentValue !== null) {
-                                const difference = currentValue - previousValue;
-                                const differenceFormatted = difference.toFixed(2);
-                                const percentage = ((difference / previousValue) * 100).toFixed(1);
-                                
-                                if (difference > 0) {
-                                  differenceText = ` (+${differenceFormatted} TL)`;
-                                  percentageText = ` Artış: %${percentage}`;
-                                } else if (difference < 0) {
-                                  differenceText = ` (${differenceFormatted} TL)`;
-                                  percentageText = ` Azalış: %${Math.abs(percentage)}`;
-                                } else {
-                                  differenceText = ` (0.00 TL)`;
-                                  percentageText = ` Değişim: %0.0`;
+                            },
+                            scales: {
+                              y: {
+                                beginAtZero: false,
+                                title: {
+                                  display: true,
+                                  text: 'Fiyat (TL)',
+                                  font: {
+                                    size: 8 // Azaltıldı
+                                  }
+                                },
+                                ticks: {
+                                  font: {
+                                    size: 7 // Azaltıldı
+                                  }
+                                }
+                              },
+                              x: {
+                                title: {
+                                  display: true,
+                                  text: 'Tarih',
+                                  font: {
+                                    size: 8 // Azaltıldı
+                                  }
+                                },
+                                ticks: {
+                                  font: {
+                                    size: 7 // Azaltıldı
+                                  }
                                 }
                               }
-                              
-                              return `${context.dataset.label}: ${currentValue?.toFixed(2) || 0} TL${differenceText}${percentageText}`;
                             }
-                          }
-                        }
-                      },
-                      scales: {
-                        y: {
-                          beginAtZero: false,
-                          title: {
-                            display: true,
-                            text: 'Fiyat (TL)',
-                            font: {
-                              size: 12
-                            }
-                          }
-                        },
-                        x: {
-                          title: {
-                            display: true,
-                            text: 'Tarih',
-                            font: {
-                              size: 12
-                            }
-                          }
-                        }
-                      }
-                    }}
-                  />
-                </div>
-              ) : (
-                <div className="h-[500px] flex flex-col items-center justify-center bg-gray-50 rounded-lg">
-                  <div className="text-center p-6">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
-                    <h3 className="text-lg font-medium text-gray-700 mb-1">Veri Bulunamadı</h3>
-                    <p className="text-gray-500 text-sm max-w-md">
-                      Seçili markalara ait fiyat verisi mevcut değil veya tüm markaları kaldırdınız.
-                    </p>
+                          }}
+                        />
+                      </div>
+                    ) : (
+                      <div className="flex-1 flex flex-col items-center justify-center bg-gray-50 rounded-lg p-2">
+                        <div className="text-center">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 mx-auto text-gray-400 mb-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                          </svg>
+                          <h3 className="text-sm font-medium text-gray-700 mb-0.5">Veri Yok</h3>
+                          <p className="text-xs text-gray-500 max-w-xs">
+                            Seçili markalara ait fiyat verisi mevcut değil.
+                          </p>
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </div>
-              )}
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="bg-gray-50 p-2 sm:p-3 border-t border-gray-200 flex justify-end flex-shrink-0"> {/* flex-shrink-0 eklendi */}
+              <button
+                onClick={() => {
+                  setShowChart(false);
+                  setSelectedChartBrands([]);
+                }}
+                className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold py-1 px-3 sm:py-2 sm:px-4 rounded text-sm transition-all duration-200"
+              >
+                Kapat
+              </button>
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Footer */}
-      <div className="bg-gray-50 p-4 border-t border-gray-200 flex justify-end">
-        <button
-          onClick={() => {
-            setShowChart(false);
-            setSelectedChartBrands([]);
-          }}
-          className="bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 text-white font-semibold py-2.5 px-6 rounded-lg shadow-sm transition-all duration-200 transform hover:scale-105"
-        >
-          Kapat
-        </button>
-      </div>
-    </div>
-  </div>
-)}
+      )}
     </div>
   );
 }
