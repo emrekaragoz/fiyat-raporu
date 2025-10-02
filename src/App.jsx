@@ -1,6 +1,6 @@
-// src/App.jsx
 import React, { useState, useEffect } from 'react';
 import dataFromFile from './data/data.json';
+import data2FromFile from './data/data2.json';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -12,8 +12,8 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-
 import * as XLSX from 'xlsx';
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -24,181 +24,288 @@ ChartJS.register(
   Legend
 );
 
-// Marka bilgileri, logoları ve linkleri için bir veri yapısı
-const brandData = {
+const oliveOilBrandData = {
   GaiaOliva: {
     logo: 'https://placehold.co/100x40/000000/FFFFFF?text=GaiaOliva',
     links: {
-      Trendyol: 'https://www.trendyol.com/sr?q=gaiaoliva',
-      Hepsiburada: 'https://www.hepsiburada.com/ara?q=gaiaoliva+zeytinyagi',
-      Amazon: 'https://www.amazon.com.tr/s?k=gaia+oliva',
-      Migros: 'https://www.migros.com.tr/arama?q=gaiaoliva',
-      Macrocenter: 'https://www.macrocenter.com.tr/arama?q=gaiaoliva',
-      WebSitesi: 'https://www.gaiaoliva.com.tr/zeytinyagi-cesitleri',
+      // Trendyol: '  https://www.trendyol.com/sr?q=gaiaoliva+zeytinyagi',
+      // Hepsiburada: '  https://www.hepsiburada.com/ara?q=gaiaoliva+zeytinyagi',
+      // Amazon: '  https://www.amazon.com.tr/s?k=gaiaoliva+zeytinyagi',
+      Migros: '  https://www.migros.com.tr/arama?q=gaiaoliva+zeytinyagi',
+      // Carrefoursa: '  https://www.carrefoursa.com/search?q=gaiaoliva+zeytinyagi',
+      // WebSitesi: '  https://www.gaiaoliva.com/  ',
+      Macrocenter: '  https://www.macrocenter.com.tr/arama?q=gaiaoliva+zeytinyagi',
     },
   },
   Komili: {
     logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Komili',
     links: {
-      Trendyol: 'https://www.trendyol.com/sr?q=komili+zeytinyagi',
-      Hepsiburada: 'https://www.hepsiburada.com/ara?q=komili+zeytinyagi',
-      Amazon: 'https://www.amazon.com.tr/s?k=komili+zeytinyagi',
-      Migros: 'https://www.migros.com.tr/arama?q=komili+zeytinyagi',
-      Macrocenter: 'https://www.macrocenter.com.tr/arama?q=komili+zeytinyagi',
-      WebSitesi: 'https://www.komilizeytinyagi.com.tr/urunlerimiz',
+      // Trendyol: '  https://www.trendyol.com/sr?q=komili+zeytinyagi',
+      // Hepsiburada: '  https://www.hepsiburada.com/ara?q=komili+zeytinyagi',
+      // Amazon: '  https://www.amazon.com.tr/s?k=komili+zeytinyagi',
+      Migros: '  https://www.migros.com.tr/arama?q=komili+zeytinyagi',
+      // Carrefoursa: '  https://www.carrefoursa.com/search?q=komili+zeytinyagi',
+      // WebSitesi: '  https://www.komili.com.tr/  ',
+      Macrocenter: '  https://www.macrocenter.com.tr/arama?q=komili+zeytinyagi',
     },
   },
   Marmarabirlik: {
     logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Marmarabirlik',
     links: {
-      Trendyol: 'https://www.trendyol.com/sr?q=marmarabirlik+zeytinyagi',
-      Hepsiburada: 'https://www.hepsiburada.com/ara?q=marmarabirlik+zeytinyagi',
-      Amazon: 'https://www.amazon.com.tr/s?k=marmarabirlik+zeytinyagi',
-      Migros: 'https://www.migros.com.tr/arama?q=marmarabirlik+zeytinyagi',
-      Macrocenter: 'https://www.macrocenter.com.tr/arama?q=marmarabirlik+zeytinyagi',
-      WebSitesi: 'https://www.e-marmarabirlik.com/zeytinyagi',
+      // Trendyol: '  https://www.trendyol.com/sr?q=marmarabirlik+zeytinyagi',
+      // Hepsiburada: '  https://www.hepsiburada.com/ara?q=marmarabirlik+zeytinyagi',
+      // Amazon: '  https://www.amazon.com.tr/s?k=marmarabirlik+zeytinyagi',
+      Migros: '  https://www.migros.com.tr/arama?q=marmarabirlik+zeytinyagi',
+      // Carrefoursa: '  https://www.carrefoursa.com/search?q=marmarabirlik+zeytinyagi',
+      // WebSitesi: '  https://www.marmarabirlik.com.tr/  ',
+      Macrocenter: '  https://www.macrocenter.com.tr/arama?q=marmarabirlik+zeytinyagi',
     },
   },
   Kozoliv: {
     logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Kozoliv',
     links: {
-      Trendyol: 'https://www.trendyol.com/sr?q=kozoliv',
-      Hepsiburada: 'https://www.hepsiburada.com/ara?q=kozoliv',
-      Amazon: 'https://www.amazon.com.tr/s?k=kozoliv',
-      Migros: 'https://www.migros.com.tr/arama?q=kozoliv',
-      Macrocenter: 'https://www.macrocenter.com.tr/arama?q=kozoliv',
-      WebSitesi: 'https://www.kozoliv.com.tr/zeytinyagi',
+      // Trendyol: '  https://www.trendyol.com/sr?q=kozoliv+zeytinyagi',
+      // Hepsiburada: '  https://www.hepsiburada.com/ara?q=kozoliv+zeytinyagi',
+      // Amazon: '  https://www.amazon.com.tr/s?k=kozoliv+zeytinyagi',
+      Migros: '  https://www.migros.com.tr/arama?q=kozoliv+zeytinyagi',
+      // Carrefoursa: '  https://www.carrefoursa.com/search?q=kozoliv+zeytinyagi',
+      // WebSitesi: '  https://www.kozoliv.com/  ',
+      Macrocenter: '  https://www.macrocenter.com.tr/arama?q=kozoliv+zeytinyagi',
     },
   },
   Asiltane: {
     logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Asiltane',
     links: {
-      Trendyol: 'https://www.trendyol.com/sr?q=asiltane',
-      Hepsiburada: 'https://www.hepsiburada.com/ara?q=asiltane',
-      Amazon: 'https://www.amazon.com.tr/s?k=asiltane',
-      Migros: 'https://www.migros.com.tr/arama?q=asiltane',
-      Macrocenter: 'https://www.macrocenter.com.tr/arama?q=asiltane',
-      WebSitesi: 'https://www.asiltane.com/kategori/zeytinyaglarimiz',
+      // Trendyol: '  https://www.trendyol.com/sr?q=asiltane+zeytinyagi',
+      // Hepsiburada: '  https://www.hepsiburada.com/ara?q=asiltane+zeytinyagi',
+      // Amazon: '  https://www.amazon.com.tr/s?k=asiltane+zeytinyagi',
+      Migros: '  https://www.migros.com.tr/arama?q=asiltane+zeytinyagi',
+      // Carrefoursa: '  https://www.carrefoursa.com/search?q=asiltane+zeytinyagi',
+      // WebSitesi: '  https://www.asiltane.com/  ',
+      Macrocenter: '  https://www.macrocenter.com.tr/arama?q=asiltane+zeytinyagi',
     },
   },
   Grandpa: {
     logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Grandpa',
     links: {
-      Trendyol: 'https://www.trendyol.com/sr?q=grandpa+zeytinyagi',
-      Hepsiburada: 'https://www.hepsiburada.com/ara?q=grandpa+zeytinyagi',
-      Amazon: 'https://www.amazon.com.tr/s?k=grandpa+zeytinyagi',
-      Migros: 'https://www.migros.com.tr/arama?q=grandpa+zeytinyagi',
-      Macrocenter: 'https://www.macrocenter.com.tr/arama?q=grandpa+zeytinyagi',
-      WebSitesi: 'https://granpa.com.tr/collections/tum-urunler',
+      // Trendyol: '  https://www.trendyol.com/sr?q=grandpa+zeytinyagi',
+      // Hepsiburada: '  https://www.hepsiburada.com/ara?q=grandpa+zeytinyagi',
+      // Amazon: '  https://www.amazon.com.tr/s?k=grandpa+zeytinyagi',
+      Migros: '  https://www.migros.com.tr/arama?q=grandpa+zeytinyagi',
+      // Carrefoursa: '  https://www.carrefoursa.com/search?q=grandpa+zeytinyagi',
+      // WebSitesi: '  https://www.grandpa.com/  ',
+      Macrocenter: '  https://www.macrocenter.com.tr/arama?q=grandpa+zeytinyagi',
     },
   },
   Monteida: {
     logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Monteida',
     links: {
-      Trendyol: 'https://www.trendyol.com/sr?q=monteida',
-      Hepsiburada: 'https://www.hepsiburada.com/ara?q=monteida',
-      Amazon: 'https://www.amazon.com.tr/s?k=monteida',
-      Migros: 'https://www.migros.com.tr/arama?q=monteida',
-      Macrocenter: 'https://www.macrocenter.com.tr/arama?q=monteida',
-      WebSitesi: 'https://monteida.com/urun-kategori/zeytinyagi',
+      // Trendyol: '  https://www.trendyol.com/sr?q=monteida+zeytinyagi',
+      // Hepsiburada: '  https://www.hepsiburada.com/ara?q=monteida+zeytinyagi',
+      // Amazon: '  https://www.amazon.com.tr/s?k=monteida+zeytinyagi',
+      Migros: '  https://www.migros.com.tr/arama?q=monteida+zeytinyagi',
+      // Carrefoursa: '  https://www.carrefoursa.com/search?q=monteida+zeytinyagi',
+      // WebSitesi: '  https://www.monteida.com/  ',
+      Macrocenter: '  https://www.macrocenter.com.tr/arama?q=monteida+zeytinyagi',
     },
   },
   Tariş: {
-    logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Tari%C5%9F+zeytinyagi',
+    logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Tari%C5%9F',
     links: {
-      Trendyol: 'https://www.trendyol.com/sr?q=tari%C5%9F+zeytinyagi',
-      Hepsiburada: 'https://www.hepsiburada.com/ara?q=tari%C5%9F+zeytinyagi',
-      Amazon: 'https://www.amazon.com.tr/s?k=tari%C5%9F+zeytinyagi',
-      Migros: 'https://www.migros.com.tr/arama?q=tari%C5%9F+zeytinyagi',
-      Macrocenter: 'https://www.macrocenter.com.tr/arama?q=tari%C5%9F+zeytinyagi',
-      WebSitesi: 'https://www.tariszeytin.com.tr/zeytinyaglari',
+      // Trendyol: '  https://www.trendyol.com/sr?q=tari%C5%9F+zeytinyagi',
+      // Hepsiburada: '  https://www.hepsiburada.com/ara?q=tari%C5%9F+zeytinyagi',
+      // Amazon: '  https://www.amazon.com.tr/s?k=tari%C5%9F+zeytinyagi',
+      Migros: '  https://www.migros.com.tr/arama?q=tari%C5%9F+zeytinyagi',
+      // Carrefoursa: '  https://www.carrefoursa.com/search?q=tari%C5%9F+zeytinyagi',
+      // WebSitesi: '  https://www.taris.com/  ',
+      Macrocenter: '  https://www.macrocenter.com.tr/arama?q=tari%C5%9F+zeytinyagi',
     },
   },
   Kristal: {
     logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Kristal',
     links: {
-      Trendyol: 'https://www.trendyol.com/sr?q=kristal+zeytinyagi',
-      Hepsiburada: 'https://www.hepsiburada.com/ara?q=kristal+zeytinyagi',
-      Amazon: 'https://www.amazon.com.tr/s?k=kristal+zeytinyagi',
-      Migros: 'https://www.migros.com.tr/arama?q=kristal+zeytinyagi',
-      Macrocenter: 'https://www.macrocenter.com.tr/arama?q=kristal+zeytinyagi',
-      WebSitesi: 'https://www.kristalyaglari.com/zeytinyagi',
+      // Trendyol: '  https://www.trendyol.com/sr?q=kristal+zeytinyagi',
+      // Hepsiburada: '  https://www.hepsiburada.com/ara?q=kristal+zeytinyagi',
+      // Amazon: '  https://www.amazon.com.tr/s?k=kristal+zeytinyagi',
+      Migros: '  https://www.migros.com.tr/arama?q=kristal+zeytinyagi',
+      // Carrefoursa: '  https://www.carrefoursa.com/search?q=kristal+zeytinyagi',
+      // WebSitesi: '  https://www.kristal.com/  ',
+      Macrocenter: '  https://www.macrocenter.com.tr/arama?q=kristal+zeytinyagi',
     },
   },
   Yudum: {
     logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Yudum',
     links: {
-      Trendyol: 'https://www.trendyol.com/sr?q=yudum+zeytinyagi',
-      Hepsiburada: 'https://www.hepsiburada.com/ara?q=yudum+zeytinyagi',
-      Amazon: 'https://www.amazon.com.tr/s?k=yudum+zeytinyagi',
-      Migros: 'https://www.migros.com.tr/arama?q=yudum+zeytinyagi',
-      Macrocenter: 'https://www.macrocenter.com.tr/arama?q=yudum+zeytinyagi',
-      WebSitesi: 'https://www.yudumtoptan.com/zeytinyag',
+      // Trendyol: '  https://www.trendyol.com/sr?q=yudum+zeytinyagi',
+      // Hepsiburada: '  https://www.hepsiburada.com/ara?q=yudum+zeytinyagi',
+      // Amazon: '  https://www.amazon.com.tr/s?k=yudum+zeytinyagi',
+      Migros: '  https://www.migros.com.tr/arama?q=yudum+zeytinyagi',
+      // Carrefoursa: '  https://www.carrefoursa.com/search?q=yudum+zeytinyagi',
+      // WebSitesi: '  https://www.yudum.com/  ',
+      Macrocenter: '  https://www.macrocenter.com.tr/arama?q=yudum+zeytinyagi',
     },
   },
   Kırlangıç: {
     logo: 'https://placehold.co/100x40/000000/FFFFFF?text=K%C4%B1rlang%C4%B1%C3%A7',
     links: {
-      Trendyol: 'https://www.trendyol.com/sr?q=k%C4%B1rlang%C4%B1%C3%A7+zeytinyagi',
-      Hepsiburada: 'https://www.hepsiburada.com/ara?q=k%C4%B1rlang%C4%B1%C3%A7+zeytinyagi',
-      Amazon: 'https://www.amazon.com.tr/s?k=k%C4%B1rlang%C4%B1%C3%A7+zeytinyagi',
-      Migros: 'https://www.migros.com.tr/arama?q=k%C4%B1rlang%C4%B1%C3%A7+zeytinyagi',
-      Macrocenter: 'https://www.macrocenter.com.tr/arama?q=k%C4%B1rlang%C4%B1%C3%A7+zeytinyagi',
-      WebSitesi: 'https://www.kirlangic.com.tr/urunlerimiz/zeytinyaglari',
+      // Trendyol: '  https://www.trendyol.com/sr?q=k%C4%B1rlang%C4%B1%C3%A7+zeytinyagi',
+      // Hepsiburada: '  https://www.hepsiburada.com/ara?q=k%C4%B1rlang%C4%B1%C3%A7+zeytinyagi',
+      // Amazon: '  https://www.amazon.com.tr/s?k=k%C4%B1rlang%C4%B1%C3%A7+zeytinyagi',
+      Migros: '  https://www.migros.com.tr/arama?q=k%C4%B1rlang%C4%B1%C3%A7+zeytinyagi',
+      // Carrefoursa: '  https://www.carrefoursa.com/search?q=k%C4%B1rlang%C4%B1%C3%A7+zeytinyagi',
+      // WebSitesi: '  https://www.kirlangic.com/  ',
+      Macrocenter: '  https://www.macrocenter.com.tr/arama?q=k%C4%B1rlang%C4%B1%C3%A7+zeytinyagi',
     },
   },
   Kavlak: {
     logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Kavlak',
     links: {
-      Trendyol: 'https://www.trendyol.com/sr?q=kavlak+zeytinyagi',
-      Hepsiburada: 'https://www.hepsiburada.com/ara?q=kavlak+zeytinyagi',
-      Amazon: 'https://www.amazon.com.tr/s?k=kavlak+zeytinyagi',
-      Migros: 'https://www.migros.com.tr/arama?q=kavlak+zeytinyagi',
-      Macrocenter: 'https://www.macrocenter.com.tr/arama?q=kavlak+zeytinyagi',
-      WebSitesi: 'https://www.kavlak.com.tr/zeytinyagi',
+      // Trendyol: '  https://www.trendyol.com/sr?q=kavlak+zeytinyagi',
+      // Hepsiburada: '  https://www.hepsiburada.com/ara?q=kavlak+zeytinyagi',
+      // Amazon: '  https://www.amazon.com.tr/s?k=kavlak+zeytinyagi',
+      Migros: '  https://www.migros.com.tr/arama?q=kavlak+zeytinyagi',
+      // Carrefoursa: '  https://www.carrefoursa.com/search?q=kavlak+zeytinyagi',
+      // WebSitesi: '  https://www.kavlak.com/  ',
+      Macrocenter: '  https://www.macrocenter.com.tr/arama?q=kavlak+zeytinyagi',
     },
   },
   Ayolis: {
     logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Ayolis',
     links: {
-      Trendyol: 'https://www.trendyol.com/sr?q=ayolis+zeytinyagi',
-      Hepsiburada: 'https://www.hepsiburada.com/ara?q=ayolis+zeytinyagi',
-      Amazon: 'https://www.amazon.com.tr/s?k=ayolis+zeytinyagi',
-      Migros: 'https://www.migros.com.tr/arama?q=ayolis+zeytinyagi',
-      Macrocenter: 'https://www.macrocenter.com.tr/arama?q=ayolis+zeytinyagi',
-      WebSitesi: 'https://www.ayolis.com/zeytinyagi',
+      // Trendyol: '  https://www.trendyol.com/sr?q=ayolis+zeytinyagi',
+      // Hepsiburada: '  https://www.hepsiburada.com/ara?q=ayolis+zeytinyagi',
+      // Amazon: '  https://www.amazon.com.tr/s?k=ayolis+zeytinyagi',
+      Migros: '  https://www.migros.com.tr/arama?q=ayolis+zeytinyagi',
+      // Carrefoursa: '  https://www.carrefoursa.com/search?q=ayolis+zeytinyagi',
+      // WebSitesi: '  https://www.ayolis.com/  ',
+      Macrocenter: '  https://www.macrocenter.com.tr/arama?q=ayolis+zeytinyagi',
     },
   },
 };
 
-
-// Ana uygulama bileşeni
+const oliveBrandData = {
+  Marmarabirlik: {
+    logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Marmarabirlik',
+    links: {
+      // Trendyol: '  https://www.trendyol.com/sr?q=Marmarabirlik+zeytin+xl',
+      // Hepsiburada: '  https://www.hepsiburada.com/ara?q=Marmarabirlik+zeytin+xl',
+      // Amazon: '  https://www.amazon.com.tr/s?k=Marmarabirlik+zeytin+xl',
+      Migros: '  https://www.migros.com.tr/arama?q=Marmarabirlik+zeytin+xl',
+      // Carrefoursa: '  https://www.carrefoursa.com/search?q=Marmarabirlik+zeytin+xl',
+      // WebSitesi: '  https://www.marmarabirlik.com.tr/  ',
+      Macrocenter: '  https://www.macrocenter.com.tr/arama?q=Marmarabirlik+zeytin+xl',
+    },
+  },
+  "Öncü": {
+    logo: 'https://placehold.co/100x40/000000/FFFFFF?text=%C3%96nc%C3%BC',
+    links: {
+      // Trendyol: '  https://www.trendyol.com/sr?q=%C3%96nc%C3%BC+zeytin+xl',
+      // Hepsiburada: '  https://www.hepsiburada.com/ara?q=%C3%96nc%C3%BC+zeytin+xl',
+      // Amazon: '  https://www.amazon.com.tr/s?k=%C3%96nc%C3%BC+zeytin+xl',
+      Migros: '  https://www.migros.com.tr/arama?q=%C3%96nc%C3%BC+zeytin+xl',
+      // Carrefoursa: '  https://www.carrefoursa.com/search?q=%C3%96nc%C3%BC+zeytin+xl',
+      // WebSitesi: '  https://www.oncuzeytin.com/  ',
+      Macrocenter: '  https://www.macrocenter.com.tr/arama?q=%C3%96nc%C3%BC+zeytin+xl',
+    },
+  },
+  Kavlak: {
+    logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Kavlak',
+    links: {
+      // Trendyol: '  https://www.trendyol.com/sr?q=Kavlak+zeytin+xl',
+      // Hepsiburada: '  https://www.hepsiburada.com/ara?q=Kavlak+zeytin+xl',
+      // Amazon: '  https://www.amazon.com.tr/s?k=Kavlak+zeytin+xl',
+      Migros: '  https://www.migros.com.tr/arama?q=Kavlak+zeytin+xl',
+      // Carrefoursa: '  https://www.carrefoursa.com/search?q=Kavlak+zeytin+xl',
+      // WebSitesi: '  https://www.kavlak.com/  ',
+      Macrocenter: '  https://www.macrocenter.com.tr/arama?q=Kavlak+zeytin+xl',
+    },
+  },
+  "Özgün Zeytincilik": {
+    logo: 'https://placehold.co/100x40/000000/FFFFFF?text=%C3%96zg%C3%BCn+Zeytincilik',
+    links: {
+      // Trendyol: '  https://www.trendyol.com/sr?q=%C3%96zg%C3%BCn+Zeytincilik+zeytin+xl',
+      // Hepsiburada: '  https://www.hepsiburada.com/ara?q=%C3%96zg%C3%BCn+Zeytincilik+zeytin+xl',
+      // Amazon: '  https://www.amazon.com.tr/s?k=%C3%96zg%C3%BCn+Zeytincilik+zeytin+xl',
+      Migros: '  https://www.migros.com.tr/arama?q=%C3%96zg%C3%BCn+Zeytincilik+zeytin+xl',
+      // Carrefoursa: '  https://www.carrefoursa.com/search?q=%C3%96zg%C3%BCn+Zeytincilik+zeytin+xl',
+      // WebSitesi: '  https://www.ozgunege.com/  ',
+      Macrocenter: '  https://www.macrocenter.com.tr/arama?q=%C3%96zg%C3%BCn+Zeytincilik+zeytin+xl',
+    },
+  },
+  Tariş: {
+    logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Tari%C5%9F',
+    links: {
+      // Trendyol: '  https://www.trendyol.com/sr?q=Tari%C5%9F+zeytin+xl',
+      // Hepsiburada: '  https://www.hepsiburada.com/ara?q=Tari%C5%9F+zeytin+xl',
+      // Amazon: '  https://www.amazon.com.tr/s?k=Tari%C5%9F+zeytin+xl',
+      Migros: '  https://www.migros.com.tr/arama?q=Tari%C5%9F+zeytin+xl',
+      // Carrefoursa: '  https://www.carrefoursa.com/search?q=Tari%C5%9F+zeytin+xl',
+      // WebSitesi: '  https://www.taris.com/  ',
+      Macrocenter: '  https://www.macrocenter.com.tr/arama?q=Tari%C5%9F+zeytin+xl',
+    },
+  },
+  Kozoliv: {
+    logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Kozoliv',
+    links: {
+      // Trendyol: '  https://www.trendyol.com/sr?q=Kozoliv+zeytin+xl',
+      // Hepsiburada: '  https://www.hepsiburada.com/ara?q=Kozoliv+zeytin+xl',
+      // Amazon: '  https://www.amazon.com.tr/s?k=Kozoliv+zeytin+xl',
+      Migros: '  https://www.migros.com.tr/arama?q=Kozoliv+zeytin+xl',
+      // Carrefoursa: '  https://www.carrefoursa.com/search?q=Kozoliv+zeytin+xl',
+      // WebSitesi: '  https://www.kozoliv.com/  ',
+      Macrocenter: '  https://www.macrocenter.com.tr/arama?q=Kozoliv+zeytin+xl',
+    },
+  },
+  Komili: {
+    logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Komili',
+    links: {
+      // Trendyol: '  https://www.trendyol.com/sr?q=Komili+zeytin+xl',
+      // Hepsiburada: '  https://www.hepsiburada.com/ara?q=Komili+zeytin+xl',
+      // Amazon: '  https://www.amazon.com.tr/s?k=Komili+zeytin+xl',
+      Migros: '  https://www.migros.com.tr/arama?q=Komili+zeytin+xl',
+      // Carrefoursa: '  https://www.carrefoursa.com/search?q=Komili+zeytin+xl',
+      // WebSitesi: '  https://www.komili.com.tr/  ',
+      Macrocenter: '  https://www.macrocenter.com.tr/arama?q=Komili+zeytin+xl',
+    },
+  },
+  Ayolis: {
+    logo: 'https://placehold.co/100x40/000000/FFFFFF?text=Ayolis',
+    links: {
+      // Trendyol: '  https://www.trendyol.com/sr?q=Ayolis+zeytin+xl',
+      // Hepsiburada: '  https://www.hepsiburada.com/ara?q=Ayolis+zeytin+xl',
+      // Amazon: '  https://www.amazon.com.tr/s?k=Ayolis+zeytin+xl',
+      Migros: '  https://www.migros.com.tr/arama?q=Ayolis+zeytin+xl',
+      // Carrefoursa: '  https://www.carrefoursa.com/search?q=Ayolis+zeytin+xl',
+      // WebSitesi: '  https://www.ayolis.com/  ',
+      Macrocenter: '  https://www.macrocenter.com.tr/arama?q=Ayolis+zeytin+xl',
+    },
+  },
+};
 export default function App() {
-  // State Yönetimi
   const [showChart, setShowChart] = useState(false);
   const [chartData, setChartData] = useState(null);
   const [selectedChartBrands, setSelectedChartBrands] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState('GaiaOliva');
   const [priceInputs, setPriceInputs] = useState({
-    tanim: '', // Yeni "Tanım" alanı eklendi
+    tanim: '',
     online: '',
     supermarket: '',
     webSitesi: '',
   });
-  const [selectedDateTab, setSelectedDateTab] = useState(''); // Add this new state
+  const [selectedDateTab, setSelectedDateTab] = useState('');
   const [reportList, setReportList] = useState([]);
   const [notification, setNotification] = useState('');
-  // Yeni state'ler
   const [topGainers, setTopGainers] = useState([]);
   const [topLosers, setTopLosers] = useState([]);
-
-  const currentBrand = brandData[selectedBrand];
+  const [productType, setProductType] = useState('Zeytinyağı');
+  const currentBrandData = productType === 'Zeytinyağı' ? oliveOilBrandData : oliveBrandData;
+  // currentBrand'ı seçili markaya göre al, eğer marka bulunamazsa ilk markayı kullan
+  const currentBrandKey = currentBrandData[selectedBrand] ? selectedBrand : Object.keys(currentBrandData)[0];
+  const currentBrand = currentBrandData[currentBrandKey];
 
   useEffect(() => {
-    // Dosyadan gelen veriyi state'e set et
     setReportList(dataFromFile);
-    
-    // Set default selected tab to today's date if available, otherwise to first date
+
     if (dataFromFile.length > 0) {
       const today = new Date().toISOString().split('T')[0];
       const dates = [...new Set(dataFromFile.map(item => item.tarih))];
@@ -210,44 +317,52 @@ export default function App() {
     }
   }, []);
 
-  // useEffect: reportList değiştiğinde istatistikleri hesapla
   useEffect(() => {
     updateTopGainersLosers();
   }, [reportList]);
- const handleSaveReportExcel = () => {
+
+  useEffect(() => {
+    if (productType === 'Zeytinyağı') {
+      const firstOliveOilBrand = Object.keys(oliveOilBrandData)[0];
+      if (!oliveOilBrandData[selectedBrand]) {
+        setSelectedBrand(firstOliveOilBrand);
+      }
+    } else if (productType === 'Zeytin') {
+      setSelectedBrand('');
+      const firstOliveBrand = Object.keys(oliveBrandData)[0];
+      setTimeout(() => setSelectedBrand(firstOliveBrand), 0); // Bir sonraki render'da ayarla
+    }
+  }, [productType]);
+
+    const getBackgroundClass = () => {
+      return productType === 'Zeytinyağı' ? 'bg-yellow-200' : 'bg-green-200'; // Zeytinyağı: Açık sarı, Zeytin: Açık yeşil
+    };
+    
+  const handleSaveReportExcel = () => {
     if (reportList.length === 0) {
       showNotification('Kaydedilecek veri bulunmuyor. Lütfen önce listeye ekleme yapın.', 'error');
       return;
     }
-
-    // Verileri XLSX formatına uygun diziye dönüştür
     const worksheetData = reportList.map(item => ({
       Marka: item.brand,
       Tanım: item.tanim,
-      "Online Fiyat": item.online || '', // Boşsa boş bırak
+      "Online Fiyat": item.online || '',
       "Süpermarket Fiyatı": item.supermarket || '',
       "Web Sitesi Fiyatı": item.webSitesi || '',
       Tarih: item.tarih
     }));
 
-    // Yeni bir workbook (çalışma kitabı) oluştur
     const wb = XLSX.utils.book_new();
-    // Verilerden bir worksheet (çalışma sayfası) oluştur
     const ws = XLSX.utils.json_to_sheet(worksheetData);
-    // Worksheet'i workbook'a ekle
     XLSX.utils.book_append_sheet(wb, ws, "Fiyat Raporu");
-
-    // Workbook'u binary string (XLSX formatında) olarak yaz
-    XLSX.writeFile(wb, 'fiyat_raporu.xlsx'); // Doğrudan .xlsx uzantısıyla indir
-
+    XLSX.writeFile(wb, 'fiyat_raporu.xlsx');
     showNotification('Rapor başarıyla "fiyat_raporu.xlsx" olarak indirildi!', 'success');
   };
-  // Dropdown değiştiğinde markayı günceller
+
   const handleBrandChange = (e) => {
     setSelectedBrand(e.target.value);
   };
 
-  // Input alanları değiştikçe state'i günceller
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setPriceInputs((prevInputs) => ({
@@ -256,332 +371,292 @@ export default function App() {
     }));
   };
 
- // Seçili markalar değiştiğinde grafiği otomatik güncelle
-useEffect(() => {
-  if (showChart && selectedChartBrands.length > 0) {
-    updateChartData();
-  }
-}, [selectedChartBrands, showChart]);
-
-// Grafik verilerini güncelleyen fonksiyon
-const updateChartData = () => {
-  if (reportList.length === 0) return;
-
-  const brandsToShow = selectedChartBrands.length > 0 
-    ? selectedChartBrands 
-    : Object.keys(brandData);
-
-  // Markalara göre verileri grupla (sadece seçili markalar)
-  const brandsData = {};
-  
-  reportList.forEach(item => {
-    if (brandsToShow.includes(item.brand)) {
-      if (!brandsData[item.brand]) {
-        brandsData[item.brand] = [];
-      }
-      brandsData[item.brand].push({
-        tarih: item.tarih,
-        online: parseFloat(item.online) || null,
-        supermarket: parseFloat(item.supermarket) || null,
-        webSitesi: parseFloat(item.webSitesi) || null,
-        tanim: item.tanim
-      });
+  useEffect(() => {
+    if (showChart && selectedChartBrands.length > 0) {
+      updateChartData();
     }
-  });
+  }, [selectedChartBrands, showChart]);
 
-  // Tarihleri sırala ve benzersiz hale getir
-  const allDates = [...new Set(reportList
-    .filter(item => brandsToShow.includes(item.brand))
-    .map(item => item.tarih))].sort();
+  const updateChartData = () => {
+    if (reportList.length === 0) return;
 
-  if (allDates.length === 0) {
-    setChartData(null);
-    return;
-  }
+    const brandsToShow = selectedChartBrands.length > 0
+      ? selectedChartBrands
+      : Object.keys(currentBrandData);
 
-  // Chart.js veri yapısını oluştur
-  const datasets = [];
-  
-  // Her marka için farklı renk
-  const brandColors = {
-    GaiaOliva: 'rgb(75, 192, 192)',
-    Komili: 'rgb(255, 99, 132)',
-    Marmarabirlik: 'rgb(255, 159, 64)'
-  };
-
-  // Fiyat türleri için stil
-  const priceTypeStyles = {
-    online: { borderDash: [], lineWidth: 2 },
-    supermarket: { borderDash: [5, 5], lineWidth: 2 },
-    webSitesi: { borderDash: [10, 5], lineWidth: 2 }
-  };
-
-  const priceTypeLabels = {
-    online: 'Online',
-    supermarket: 'Süpermarket',
-    webSitesi: 'Web Sitesi'
-  };
-
-  Object.keys(brandsData).forEach(brand => {
-    const brandItems = brandsData[brand];
-    const baseColor = brandColors[brand] || `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
-    
-    ['online', 'supermarket', 'webSitesi'].forEach(priceType => {
-      const data = allDates.map(date => {
-        const item = brandItems.find(i => i.tarih === date && i[priceType] !== null);
-        return item ? item[priceType] : null;
-      });
-
-      // Sadece veri olan dataset'leri ekle
-      if (data.some(value => value !== null)) {
-        datasets.push({
-          label: `${brand} - ${priceTypeLabels[priceType]}`,
-          data: data,
-          borderColor: baseColor,
-          backgroundColor: baseColor + '20',
-          ...priceTypeStyles[priceType],
-          tension: 0.1,
-          pointBackgroundColor: baseColor,
-          pointBorderColor: '#fff',
-          pointBorderWidth: 2,
-          pointRadius: 5,
+    const brandsData = {};
+    reportList.forEach(item => {
+      if (brandsToShow.includes(item.brand)) {
+        if (!brandsData[item.brand]) {
+          brandsData[item.brand] = [];
+        }
+        brandsData[item.brand].push({
+          tarih: item.tarih,
+          online: parseFloat(item.online) || null,
+          supermarket: parseFloat(item.supermarket) || null,
+          webSitesi: parseFloat(item.webSitesi) || null,
+          tanim: item.tanim
         });
       }
     });
-  });
 
-  setChartData({
-    labels: allDates,
-    datasets: datasets
-  });
-};
+    const allDates = [...new Set(reportList
+      .filter(item => brandsToShow.includes(item.brand))
+      .map(item => item.tarih))].sort();
+
+    if (allDates.length === 0) {
+      setChartData(null);
+      return;
+    }
+
+    const datasets = [];
+    const brandColors = {
+      GaiaOliva: 'rgb(75, 192, 192)',
+      Komili: 'rgb(255, 99, 132)',
+      Marmarabirlik: 'rgb(255, 159, 64)'
+    };
+
+    const priceTypeStyles = {
+      online: { borderDash: [], lineWidth: 2 },
+      supermarket: { borderDash: [5, 5], lineWidth: 2 },
+      webSitesi: { borderDash: [10, 5], lineWidth: 2 }
+    };
+
+    const priceTypeLabels = {
+      online: 'Online',
+      supermarket: 'Süpermarket',
+      webSitesi: 'Web Sitesi'
+    };
+
+    Object.keys(brandsData).forEach(brand => {
+      const brandItems = brandsData[brand];
+      const baseColor = brandColors[brand] || `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+
+      ['online', 'supermarket', 'webSitesi'].forEach(priceType => {
+        const data = allDates.map(date => {
+          const item = brandItems.find(i => i.tarih === date && i[priceType] !== null);
+          return item ? item[priceType] : null;
+        });
+
+        if (data.some(value => value !== null)) {
+          datasets.push({
+            label: `${brand} - ${priceTypeLabels[priceType]}`,
+            data,
+            borderColor: baseColor,
+            backgroundColor: baseColor + '20',
+            ...priceTypeStyles[priceType],
+            tension: 0.1,
+            pointBackgroundColor: baseColor,
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            pointRadius: 5,
+          });
+        }
+      });
+    });
+
+    setChartData({
+      labels: allDates,
+      datasets: datasets
+    });
+  };
+
   const getUniqueDates = () => {
     const dates = [...new Set(reportList.map(item => item.tarih))];
-    return dates.sort((a, b) => new Date(b) - new Date(a)); // Sort descending (newest first)
+    return dates.sort((a, b) => new Date(b) - new Date(a));
   };
-    const getItemsForDate = (date) => {
+
+  const getItemsForDate = (date) => {
     return reportList.filter(item => item.tarih === date);
   };
-const getUniqueBrandsFromData = () => {
-  if (reportList.length === 0) return Object.keys(brandData);
-  
-  const uniqueBrands = [...new Set(reportList.map(item => item.brand))];
-  return uniqueBrands.sort();
-};
 
-// Orijinal generateChartData fonksiyonunu basitleştir
-const generateChartData = () => {
-  if (reportList.length === 0) {
-    showNotification('Grafik oluşturmak için yeterli veri bulunmuyor.', 'error');
-    return;
-  }
+  const getUniqueBrandsFromData = () => {
+    if (reportList.length === 0) return Object.keys(currentBrandData);
+    const uniqueBrands = [...new Set(reportList.map(item => item.brand))];
+    return uniqueBrands.sort();
+  };
 
-  setShowChart(true);
-  // useEffect otomatik olarak grafiği güncelleyecek
-};
-
-const calculatePriceChanges = () => {
-  if (reportList.length === 0) return [];
-
-  // Tarihleri benzersiz ve azalan sırada al
-  const sortedUniqueDates = [...new Set(reportList.map(item => item.tarih))].sort((a, b) => new Date(b) - new Date(a));
-  console.log("Tüm benzersiz tarihler (azalan sırada):", sortedUniqueDates);
-
-  if (sortedUniqueDates.length < 2) {
-    console.log("Yeterli tarih verisi yok (en az 2 farklı tarih gerekli).");
-    return [];
-  }
-
-  const latestDate = sortedUniqueDates[0];
-  const referenceDate = sortedUniqueDates[1]; // En güncel tarihden bir sonraki, olabilir
-
-  // 1 hafta (7 gün) öncesini hesapla
-  const latestDateObj = new Date(latestDate);
-  const targetDateObj = new Date(latestDateObj);
-  targetDateObj.setDate(latestDateObj.getDate() - 7);
-  const targetDateString = targetDateObj.toISOString().split('T')[0]; // YYYY-MM-DD formatına çevir
-
-  console.log(`En güncel tarih: ${latestDate}`);
-  console.log(`Hedef tarih (1 hafta önce): ${targetDateString}`);
-
-  // Hedef tarihe en yakın, hedef tarihten küçük veya eşit olan tarihi bul
-  let previousDate = null;
-  for (let i = 1; i < sortedUniqueDates.length; i++) { // 0. indeks en yeni, onu atlıyoruz
-    const currentDate = sortedUniqueDates[i];
-    if (new Date(currentDate) <= targetDateObj) {
-      previousDate = currentDate;
-      console.log(`Bulunan uygun tarih: ${previousDate}`);
-      break;
+  const generateChartData = () => {
+    if (reportList.length === 0) {
+      showNotification('Grafik oluşturmak için yeterli veri bulunmuyor.', 'error');
+      return;
     }
-  }
+    setShowChart(true);
+  };
 
-  if (!previousDate) {
-    console.log(`"${targetDateString}" tarihine veya daha önceki bir tarihe ait veri bulunamadı.`);
-    // Alternatif olarak, sadece son iki farklı tarihle hesaplamak isterseniz:
-    // previousDate = referenceDate;
-    // console.log(`Alternatif olarak son iki farklı tarih kullanılıyor: ${latestDate} ve ${previousDate}`);
-    return [];
-  }
+  const calculatePriceChanges = () => {
+    if (reportList.length === 0) return [];
 
-  console.log(`Fiyat değişiklikleri hesaplanıyor: ${previousDate} -> ${latestDate}`);
+    const sortedUniqueDates = [...new Set(reportList.map(item => item.tarih))].sort((a, b) => new Date(b) - new Date(a));
+    console.log("Tüm benzersiz tarihler (azalan sırada):", sortedUniqueDates);
 
-  // Ürünleri (brand + tanim) grupla ve belirtilen iki tarih için fiyatını al
-  const productMap = new Map();
-  reportList.forEach(item => {
-    const key = `${item.brand}-${item.tanim}-${item.tarih}`;
-    if (item.tarih === latestDate || item.tarih === previousDate) {
-      if (!productMap.has(key)) {
-        console.log("sss key:", key, "Tarih:", item.tarih);
-        productMap.set(key, { brand: item.brand, tanim: item.tanim, [item.tarih]: item });
-      } else {
-        console.log("get key:", key, "Tarih:", item.tarih);
-        productMap.get(key)[item.tarih] = item;
+    if (sortedUniqueDates.length < 2) {
+      console.log("Yeterli tarih verisi yok (en az 2 farklı tarih gerekli).");
+      return [];
+    }
+
+    const latestDate = sortedUniqueDates[0];
+    const referenceDate = sortedUniqueDates[1];
+
+    const latestDateObj = new Date(latestDate);
+    const targetDateObj = new Date(latestDateObj);
+    targetDateObj.setDate(latestDateObj.getDate() - 7);
+    const targetDateString = targetDateObj.toISOString().split('T')[0];
+
+    console.log(`En güncel tarih: ${latestDate}`);
+    console.log(`Hedef tarih (1 hafta önce): ${targetDateString}`);
+
+    let previousDate = null;
+    for (let i = 1; i < sortedUniqueDates.length; i++) {
+      const currentDate = sortedUniqueDates[i];
+      if (new Date(currentDate) <= targetDateObj) {
+        previousDate = currentDate;
+        console.log(`Bulunan uygun tarih: ${previousDate}`);
+        break;
       }
     }
-  });
 
-  console.log("Oluşturulan productMap:", productMap); // Hata ayıklama
+    if (!previousDate) {
+      console.log(`"${targetDateString}" tarihine veya daha önceki bir tarihe ait veri bulunamadı.`);
+      return [];
+    }
 
-  const priceChanges = [];
-  // productMap'teki tüm girdileri gez
-  for (const [key, productData] of productMap.entries()) {
-    // Anahtarı '-' ile böl ve ilk iki parçayı al (brand ve tanim)
-    const [itemBrand, itemTanim] = key.split('-').slice(0, 2).join('-').split('-', 2); // Bu, brand-tanim kısmını alır
+    console.log(`Fiyat değişiklikleri hesaplanıyor: ${previousDate} -> ${latestDate}`);
 
-    // Bu ürünün (brand-tanim) hem latestDate hem de previousDate için verisi olup olmadığını kontrol et
-    const latestItem = productData[latestDate];
-    const previousItem = productData[previousDate];
+    const productMap = new Map();
+    reportList.forEach(item => {
+      const key = `${item.brand}-${item.tanim}-${item.tarih}`;
+      if (item.tarih === latestDate || item.tarih === previousDate) {
+        if (!productMap.has(key)) {
+          console.log("sss key:", key, "Tarih:", item.tarih);
+          productMap.set(key, { brand: item.brand, tanim: item.tanim, [item.tarih]: item });
+        } else {
+          console.log("get key:", key, "Tarih:", item.tarih);
+          productMap.get(key)[item.tarih] = item;
+        }
+      }
+    });
 
-    // Eğer bu girdi hem latestDate hem de previousDate verisi içeriyorsa (yani key hem latestDate hem previousDate içeriyorsa)
-    // Bu senaryoda, bir girdi sadece 1 tarihe ait veri içerdiği için bu kontrol geçersiz olur.
-    // Doğru yaklaşım: productMap'te sadece latestDate içeren bir anahtarı al, sonra onunla eşleşen previousDate içeren başka bir anahtar aramak.
+    console.log("Oluşturulan productMap:", productMap);
+    const priceChanges = [];
 
-    // Daha iyi bir yaklaşım:
-    // 1. latestDate'e ait tüm anahtarları bul
-    const latestDateKeys = [...productMap.keys()].filter(k => k.endsWith(latestDate));
+    for (const [key, productData] of productMap.entries()) {
+      const latestDateKeys = [...productMap.keys()].filter(k => k.endsWith(latestDate));
 
-    // 2. Her latestDate anahtarı için, aynı ürünün (aynı brand-tanim kısmı) previousDate'e ait anahtarını bul
-    latestDateKeys.forEach(latestKey => {
-        const [latestBrand, latestTanim] = latestKey.split('-').slice(0, -1).join('-').split('-', 2); // Son parçayı (tarih) at
+      latestDateKeys.forEach(latestKey => {
+        const [latestBrand, latestTanim] = latestKey.split('-').slice(0, -1).join('-').split('-', 2);
         const targetPreviousKey = `${latestBrand}-${latestTanim}-${previousDate}`;
 
-        const latestItem = productMap.get(latestKey)[latestDate]; // latestKey'in tarih alanından latestDate verisini al
-        const previousItem = productMap.get(targetPreviousKey)?.[previousDate]; // targetPreviousKey varsa, onun tarih alanından previousDate verisini al
+        const latestItem = productMap.get(latestKey)[latestDate];
+        const previousItem = productMap.get(targetPreviousKey)?.[previousDate];
 
         console.log(`İşlenen latestKey: ${latestKey}, targetPreviousKey: ${targetPreviousKey}`);
         console.log(`  latestItem var mı? ${!!latestItem}, previousItem var mı? ${!!previousItem}`);
 
         if (latestItem && previousItem) {
-            console.log(`    ${latestKey} ve ${targetPreviousKey} için karşılaştırma yapılacak.`);
-            // Fiyat türlerini kontrol et (online, supermarket, webSitesi)
-            ['online', 'supermarket', 'webSitesi'].forEach(priceType => {
-                const latestPrice = parseFloat(latestItem[priceType]);
-                const previousPrice = parseFloat(previousItem[priceType]);
+          console.log(`    ${latestKey} ve ${targetPreviousKey} için karşılaştırma yapılacak.`);
+          ['online', 'supermarket', 'webSitesi'].forEach(priceType => {
+            const latestPrice = parseFloat(latestItem[priceType]);
+            const previousPrice = parseFloat(previousItem[priceType]);
 
-                if (!isNaN(latestPrice) && !isNaN(previousPrice) && previousPrice !== 0) {
-                    const change = latestPrice - previousPrice;
-                    const changePercentage = ((change / previousPrice) * 100).toFixed(2);
+            if (!isNaN(latestPrice) && !isNaN(previousPrice) && previousPrice !== 0) {
+              const change = latestPrice - previousPrice;
+              const changePercentage = ((change / previousPrice) * 100).toFixed(2);
 
-                    priceChanges.push({
-                        brand: latestItem.brand,
-                        tanim: latestItem.tanim,
-                        priceType: priceType,
-                        latestDate: latestDate,
-                        previousDate: previousDate,
-                        latestPrice: latestPrice,
-                        previousPrice: previousPrice,
-                        change: change,
-                        changePercentage: parseFloat(changePercentage)
-                    });
-                }
-            });
+              priceChanges.push({
+                brand: latestItem.brand,
+                tanim: latestItem.tanim,
+                priceType: priceType,
+                latestDate: latestDate,
+                previousDate: previousDate,
+                latestPrice: latestPrice,
+                previousPrice: previousPrice,
+                change: change,
+                changePercentage: parseFloat(changePercentage)
+              });
+            }
+          });
         } else {
-            console.log(`    ${latestKey} için karşılaştırma YAPILAMADI (eksik tarih verisi).`);
+          console.log(`    ${latestKey} için karşılaştırma YAPILAMADI (eksik tarih verisi).`);
         }
+      });
+    }
+
+    console.log("Hesaplanan fiyat değişiklikleri:", priceChanges);
+    return priceChanges;
+  };
+
+  const updateTopGainersLosers = () => {
+    const changes = calculatePriceChanges();
+    if (changes.length === 0) {
+      setTopGainers([]);
+      setTopLosers([]);
+      return;
+    }
+
+    const uniqueProductsMap = new Map();
+    changes.forEach(item => {
+      const productKey = `${item.brand}-${item.tanim}`;
+      const existingEntry = uniqueProductsMap.get(productKey);
+
+      if (item.change > 0) {
+        if (!existingEntry || (existingEntry.change > 0 && item.changePercentage > existingEntry.changePercentage)) {
+          uniqueProductsMap.set(productKey, { ...item, type: 'gainer' });
+        }
+      } else if (item.change < 0) {
+        if (!existingEntry || (existingEntry.change < 0 && item.changePercentage < existingEntry.changePercentage)) {
+          uniqueProductsMap.set(productKey, { ...item, type: 'loser' });
+        }
+      }
     });
-  }
 
+    const uniqueChanges = Array.from(uniqueProductsMap.values());
 
-  console.log("Hesaplanan fiyat değişiklikleri:", priceChanges); // Hata ayıklama
-  return priceChanges;
-};
+    const gainers = uniqueChanges
+      .filter(item => item.type === 'gainer')
+      .sort((a, b) => b.changePercentage - a.changePercentage)
+      .slice(0, 5);
 
-// Yeni fonksiyon: En çok artan ve düşen ürünleri hesapla ve state'e set et
-const updateTopGainersLosers = () => {
-  const changes = calculatePriceChanges();
-  if (changes.length === 0) {
-    setTopGainers([]);
-    setTopLosers([]);
-    return;
-  }
+    const losers = uniqueChanges
+      .filter(item => item.type === 'loser')
+      .sort((a, b) => a.changePercentage - b.changePercentage)
+      .slice(0, 5);
 
-  // Her ürün (brand + tanim) için en çok artışı ve en çok düşüşü bul
-  const uniqueProductsMap = new Map();
+    setTopGainers(gainers);
+    setTopLosers(losers);
+  };
 
-  changes.forEach(item => {
-    const productKey = `${item.brand}-${item.tanim}`;
-    const existingEntry = uniqueProductsMap.get(productKey);
-
-    // Artış mı?
-    if (item.change > 0) {
-      // Henüz bu ürün için bir giriş yoksa veya bu ürünün daha büyük bir artışı varsa, güncelle
-      if (!existingEntry || (existingEntry.change > 0 && item.changePercentage > existingEntry.changePercentage)) {
-        uniqueProductsMap.set(productKey, { ...item, type: 'gainer' });
-      }
-    }
-    // Düşüş mü?
-    else if (item.change < 0) {
-      // Henüz bu ürün için bir giriş yoksa veya bu ürünün daha büyük bir düşüşü (daha negatif) varsa, güncelle
-      if (!existingEntry || (existingEntry.change < 0 && item.changePercentage < existingEntry.changePercentage)) { // Daha negatif = daha fazla düşüş
-        uniqueProductsMap.set(productKey, { ...item, type: 'loser' });
-      }
-    }
-  });
-
-  // Map'ten tekrarsız verileri al
-  const uniqueChanges = Array.from(uniqueProductsMap.values());
-
-  // En çok artanları bul (changePercentage'e göre azalan sırada)
-  const gainers = uniqueChanges
-    .filter(item => item.type === 'gainer') // Sadece artış olanları al
-    .sort((a, b) => b.changePercentage - a.changePercentage)
-    .slice(0, 5); // İlk 5 tanesini al
-
-  // En çok düşenleri bul (changePercentage'e göre artan sırada - en negatif olan en başa)
-  const losers = uniqueChanges
-    .filter(item => item.type === 'loser') // Sadece düşüş olanları al
-    .sort((a, b) => a.changePercentage - b.changePercentage) // En negatif (en çok düşen) en başa
-    .slice(0, 5); // İlk 5 tanesini al
-
-  setTopGainers(gainers);
-  setTopLosers(losers);
-};
-
-const handleSaveToList = async (e) => {
+  const handleSaveToList = async (e) => {
     e.preventDefault();
     if (!priceInputs.online && !priceInputs.supermarket && !priceInputs.webSitesi) {
       showNotification('Lütfen en az bir fiyat alanı doldurun.', 'error');
       return;
     }
-    const today = new Date().toISOString().split('T')[0]; // Bugünün tarihi YYYY-MM-DD formatında
 
+    const today = new Date().toISOString().split('T')[0];
     const newEntry = {
-      id: Date.now(), // veya daha iyi bir ID sistemi düşünülebilir
+      id: Date.now(),
       brand: selectedBrand,
       ...priceInputs,
-      tarih: today // Tarih ekle
+      tarih: today
     };
 
     const updatedList = [...reportList, newEntry];
-    setReportList(updatedList); // reportList state'ini güncelle
-    setSelectedDateTab(today); // Yeni eklenen verinin görüneceği tab'ı seç
-    setPriceInputs({ tanim: '', online: '', supermarket: '', webSitesi: '' }); // Formu temizle
+    setReportList(updatedList);
+    setSelectedDateTab(today);
+    setPriceInputs({ tanim: '', online: '', supermarket: '', webSitesi: '' });
     showNotification(`${selectedBrand} için fiyatlar listeye eklendi. Tarih: ${today}`, 'success');
+
+    try {
+      await saveDataToFile(updatedList);
+    } catch (error) {
+      console.error('Veri kaydedilirken hata oluştu:', error);
+      showNotification('Veri kaydedilemedi. Lütfen tekrar deneyin.', 'error');
+    }
   };
 
-  // Listeden bir öğeyi siler (sadece en son tarihli tablodan)
   const handleDeleteItem = (idToDelete) => {
-    const today = new Date().toISOString().split('T')[0]; // Bugünün tarihi
+    const today = new Date().toISOString().split('T')[0];
     const itemToDelete = reportList.find(item => item.id === idToDelete);
 
     if (itemToDelete && itemToDelete.tarih === today) {
@@ -591,7 +666,7 @@ const handleSaveToList = async (e) => {
       showNotification('Sadece bugün tarihli veriler silinebilir.', 'error');
     }
   };
-  // Bildirim gösterme fonksiyonu
+
   const showNotification = (message, type) => {
     setNotification({ message, type });
     setTimeout(() => {
@@ -599,14 +674,13 @@ const handleSaveToList = async (e) => {
     }, 3000);
   };
 
-  // Raporu JSON dosyası olarak indirir
   const handleSaveReport = () => {
     if (reportList.length === 0) {
       showNotification('Kaydedilecek veri bulunmuyor. Lütfen önce listeye ekleme yapın.', 'error');
       return;
     }
     const dataStr = JSON.stringify(reportList, null, 2);
-    const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+    const dataUri = 'application/json;charset=utf-8,' + encodeURIComponent(dataStr);
 
     const linkElement = document.createElement('a');
     linkElement.setAttribute('href', dataUri);
@@ -617,28 +691,61 @@ const handleSaveToList = async (e) => {
     showNotification('Rapor başarıyla "fiyat_raporu.json" olarak indirildi!', 'success');
   };
 
+  const saveDataToFile = async (data) => {
+    const dataStr = JSON.stringify(data, null, 2);
+    const blob = new Blob([dataStr], { type: 'application/json' });
+    console.log("Veri kaydedildi:", data);
+  };
+
   return (
-    <div className="bg-gray-100 text-gray-900 min-h-screen font-sans">
+     <div className={`text-gray-900 min-h-screen font-sans ${getBackgroundClass()}`}>
       {/* --- Header --- */}
       <header className="bg-[#131921] p-4 shadow-lg sticky top-0 z-10">
         <div className="container mx-auto">
           <h1 className="text-2xl font-bold text-white">Fiyat Raporu</h1>
         </div>
       </header>
-
       <main className="container mx-auto p-4 md:p-8">
+        {/* --- Yeni Toggle Butonları --- */}
+        <div className="bg-white p-4 rounded-lg shadow-md mb-4">
+          <h2 className="text-xl font-semibold mb-3 text-gray-800 text-center">Ürün Türü</h2>
+          <div className="flex justify-center space-x-4">
+            <button
+              onClick={() => setProductType('Zeytinyağı')}
+              className={`flex-1 py-4 px-6 rounded-lg font-bold text-lg transition-all border ${
+                productType === 'Zeytinyağı'
+                  ? 'bg-yellow-500 text-white border-yellow-600 shadow-md' // Zeytinyağı seçiliyse buton rengi
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300 border-gray-300' // Değilse gri
+              }`}
+            >
+              Zeytinyağı
+            </button>
+            <button
+              onClick={() => setProductType('Zeytin')}
+              className={`flex-1 py-4 px-6 rounded-lg font-bold text-lg transition-all border ${
+                productType === 'Zeytin'
+                  ? 'bg-green-500 text-white border-green-600 shadow-md' // Zeytin seçiliyse buton rengi
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300 border-gray-300' // Değilse gri
+              }`}
+            >
+              Zeytin
+            </button>
+          </div>
+          <p className="text-center text-sm text-gray-500 mt-2">
+            Seçili Ürün: <span className="font-semibold">{productType}</span>
+          </p>
+        </div>
          {/* --- Marka Seçim Alanı ve Hızlı Erişim Linkleri --- */}
         <div className="bg-white p-6 rounded-lg shadow-md mb-8">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">Marka Seçimi</h2>
-          <div className="flex flex-col lg:flex-row gap-6"> {/* lg:flex-row: büyük ekranlarda yatay hizala */}
-            {/* Marka Dropdown */}
-            <div className="flex-1"> {/* Flex-grow: kalan alanı kaplar */}
+          <div className="flex flex-col lg:flex-row gap-6">
+            <div className="flex-1">
               <select
-                value={selectedBrand}
+                value={currentBrandKey} // currentBrandKey'i value olarak kullan
                 onChange={handleBrandChange}
                 className="bg-gray-50 w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-all"
               >
-                {Object.keys(brandData).map((brand) => (
+                {Object.keys(currentBrandData).map((brand) => (
                   <option key={brand} value={brand}>
                     {brand}
                   </option>
@@ -646,9 +753,8 @@ const handleSaveToList = async (e) => {
               </select>
             </div>
 
-            {/* Hızlı Erişim Linkleri */}
-            <div className="w-full lg:w-auto"> {/* lg:w-auto: büyük ekranda otomatik boyut alır */}
-              <h2 className="text-xl font-semibold mb-2 lg:mb-4 text-gray-800 lg:hidden">Hızlı Erişim Linkleri</h2> {/* Mobilde başlık */}
+            <div className="w-full lg:w-auto">
+              <h2 className="text-xl font-semibold mb-2 lg:mb-4 text-gray-800 lg:hidden">Hızlı Erişim Linkleri</h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
                 {Object.entries(currentBrand.links).map(([name, link]) => (
                   <a
@@ -682,7 +788,6 @@ const handleSaveToList = async (e) => {
               <input
                 type="text"
                 name="tanim"
-                placeholder="örn: 5L Teneke"
                 value={priceInputs.tanim}
                 onChange={handleInputChange}
                 className="w-full bg-white border border-gray-300 rounded-md px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-sm"
@@ -693,7 +798,6 @@ const handleSaveToList = async (e) => {
               <input
                 type="number"
                 name="online"
-                placeholder="örn: 250.50"
                 value={priceInputs.online}
                 onChange={handleInputChange}
                 className="w-full bg-white border border-gray-300 rounded-md px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-sm"
@@ -704,7 +808,6 @@ const handleSaveToList = async (e) => {
               <input
                 type="number"
                 name="supermarket"
-                placeholder="örn: 260.00"
                 value={priceInputs.supermarket}
                 onChange={handleInputChange}
                 className="w-full bg-white border border-gray-300 rounded-md px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-sm"
@@ -715,7 +818,6 @@ const handleSaveToList = async (e) => {
               <input
                 type="number"
                 name="webSitesi"
-                placeholder="örn: 245.90"
                 value={priceInputs.webSitesi}
                 onChange={handleInputChange}
                 className="w-full bg-white border border-gray-300 rounded-md px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 text-sm"
@@ -730,7 +832,7 @@ const handleSaveToList = async (e) => {
           </form>
         </div>
 
-        {/* --- Yeni Panel: En çok artış gösteren ürünler --- */}
+      
 
         {/* --- Kaydedilenler Listesi with Tabs --- */}
         {reportList.length > 0 && (
@@ -801,7 +903,7 @@ const handleSaveToList = async (e) => {
               ))}
             </div>
             {/* --- Yeni Excel Butonu (Tablo Altında Sağda) --- */}
-            <div className="mt-4 flex justify-end"> {/* mt-4: biraz üst boşluk, justify-end: sağa yaslar */}
+            <div className="mt-4 flex justify-end">
               <button
                 onClick={handleSaveReportExcel}
                 className="bg-gradient-to-b from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors border border-green-700 shadow-md"
@@ -812,48 +914,7 @@ const handleSaveToList = async (e) => {
           </div>
         )}
 
-        <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-          <h2 className="text-xl font-semibold mb-4 text-green-700">📈 En çok artış gösteren ürünler</h2>
-          {topGainers.length > 0 ? (
-            <div className="space-y-2 max-h-60 overflow-y-auto">
-              {topGainers.map((item, index) => (
-                <div key={`${item.brand}-${item.tanim}-${item.priceType}-${index}`} className="flex justify-between items-center bg-green-50 p-3 rounded border border-green-200">
-                  <div>
-                    <span className="font-medium text-gray-800">{item.brand}</span> - <span className="text-gray-600">{item.tanim}</span> (<span className="text-sm text-gray-500">{item.priceType}</span>)
-                  </div>
-                  <div className="text-right">
-                    <div className="text-green-700 font-semibold">{item.latestPrice.toFixed(2)} TL</div>
-                    <div className="text-xs text-green-600">({item.change > 0 ? '+' : ''}{item.change.toFixed(2)} TL, +%{item.changePercentage.toFixed(2)})</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-gray-500 text-center py-4">Veri bulunamadı veya yeterli tarih yok.</p>
-          )}
-        </div>
 
-        {/* --- Yeni Panel: En çok düşüş gösteren ürünler --- */}
-        <div className="bg-white p-6 rounded-lg shadow-md mb-8">
-          <h2 className="text-xl font-semibold mb-4 text-red-700">📉 En çok düşüş gösteren ürünler</h2>
-          {topLosers.length > 0 ? (
-            <div className="space-y-2 max-h-60 overflow-y-auto">
-              {topLosers.map((item, index) => (
-                <div key={`${item.brand}-${item.tanim}-${item.priceType}-${index}`} className="flex justify-between items-center bg-red-50 p-3 rounded border border-red-200">
-                  <div>
-                    <span className="font-medium text-gray-800">{item.brand}</span> - <span className="text-gray-600">{item.tanim}</span> (<span className="text-sm text-gray-500">{item.priceType}</span>)
-                  </div>
-                  <div className="text-right">
-                    <div className="text-red-700 font-semibold">{item.latestPrice.toFixed(2)} TL</div>
-                    <div className="text-xs text-red-600">({item.change.toFixed(2)} TL, %{item.changePercentage.toFixed(2)})</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-gray-500 text-center py-4">Veri bulunamadı veya yeterli tarih yok.</p>
-          )}
-        </div>
         {/* --- Raporu Kaydet Butonu --- */}
         {/* --- Raporu Kaydet ve Grafik Butonları --- */}
 <div className="text-center mt-10 space-y-4 md:space-y-0 md:space-x-4">
@@ -886,11 +947,10 @@ const handleSaveToList = async (e) => {
 
 {/* --- Grafik Modal --- */}
       {showChart && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 p-0"> {/* Değişiklik: p-4 -> p-0 */}
-          {/* Değişiklik: max-w-screen-xl, max-h-[95vh] kaldırıldı, w-full, h-full eklendi */}
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 p-0">
           <div className="bg-white w-full h-full overflow-hidden flex flex-col">
             {/* Header */}
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-2 sm:p-3 border-b border-gray-200 flex-shrink-0"> {/* Değişiklik: p-4 sm:p-6 -> p-2 sm:p-3, flex-shrink-0 eklendi */}
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-2 sm:p-3 border-b border-gray-200 flex-shrink-0">
               <div className="flex justify-between items-center">
                 <div>
                   <h2 className="text-lg sm:text-xl font-bold text-gray-800">Fiyat Değişim Grafiği</h2>
@@ -899,7 +959,7 @@ const handleSaveToList = async (e) => {
                 <button
                   onClick={() => {
                     setShowChart(false);
-                    setSelectedChartBrands([]); // Modal kapandığında seçimi temizle
+                    setSelectedChartBrands([]);
                   }}
                   className="w-6 h-6 sm:w-8 sm:h-8 flex items-center justify-center rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors duration-200"
                   aria-label="Kapat"
@@ -914,7 +974,7 @@ const handleSaveToList = async (e) => {
             {/* Content */}
             <div className="flex-1 flex overflow-hidden">
               {/* Brand Selection Panel - Değişiklik: w-32 md:w-40 lg:w-48 */}
-              <div className="w-32 md:w-40 lg:w-48 border-r border-gray-200 bg-gray-50 flex flex-col flex-shrink-0"> {/* flex-shrink-0 eklendi */}
+              <div className="w-32 md:w-40 lg:w-48 border-r border-gray-200 bg-gray-50 flex flex-col flex-shrink-0">
                 <div className="p-2 sm:p-3 border-b border-gray-200">
                   <h3 className="text-xs sm:text-sm font-semibold text-gray-800">Markalar</h3>
                   <div className="text-xs text-gray-500 mt-0.5 bg-white px-1.5 py-0.5 rounded-full inline-block text-center">
@@ -975,15 +1035,15 @@ const handleSaveToList = async (e) => {
 
               {/* Chart Area - Değişiklik: flex-1 */}
               <div className="flex-1 flex flex-col overflow-hidden">
-                <div className="p-1 sm:p-2 flex-1"> {/* flex-1 eklendi */}
-                  <div className="bg-white rounded-lg border border-gray-200 p-1 sm:p-2 h-full flex flex-col"> {/* h-full ve flex-col eklendi */}
+                <div className="p-1 sm:p-2 flex-1">
+                  <div className="bg-white rounded-lg border border-gray-200 p-1 sm:p-2 h-full flex flex-col">
                     {chartData && chartData.datasets.length > 0 ? (
-                      <div className="flex-1 relative"> {/* flex-1 eklendi */}
+                      <div className="flex-1 relative">
                         <Line
                           data={chartData}
                           options={{
-                            responsive: true, // Grafik container'ı doldursun
-                            maintainAspectRatio: false, // En boy oranını koruma, container'ı tamamen doldursun
+                            responsive: true,
+                            maintainAspectRatio: false,
                             plugins: {
                               legend: {
                                 position: 'top',
@@ -1006,10 +1066,10 @@ const handleSaveToList = async (e) => {
                                     });
                                   },
                                   usePointStyle: true,
-                                  padding: 8, // Azaltıldı
-                                  boxWidth: 6, // Azaltıldı
+                                  padding: 8,
+                                  boxWidth: 6,
                                   font: {
-                                    size: 8 // Azaltıldı
+                                    size: 8
                                   }
                                 }
                               },
@@ -1017,12 +1077,12 @@ const handleSaveToList = async (e) => {
                                 display: true,
                                 text: 'Fiyat Değişim Analizi',
                                 font: {
-                                  size: 10, // Azaltıldı
+                                  size: 10,
                                   weight: 'bold'
                                 },
                                 padding: {
-                                  top: 8, // Azaltıldı
-                                  bottom: 12 // Azaltıldı
+                                  top: 8,
+                                  bottom: 12
                                 }
                               },
                               tooltip: {
@@ -1031,8 +1091,8 @@ const handleSaveToList = async (e) => {
                                 bodyColor: '#fff',
                                 borderColor: '#4f46e5',
                                 borderWidth: 1,
-                                padding: 6, // Azaltıldı
-                                cornerRadius: 4, // Azaltıldı
+                                padding: 6,
+                                cornerRadius: 4,
                                 displayColors: true,
                                 mode: 'index',
                                 intersect: false,
@@ -1087,12 +1147,12 @@ const handleSaveToList = async (e) => {
                                   display: true,
                                   text: 'Fiyat (TL)',
                                   font: {
-                                    size: 8 // Azaltıldı
+                                    size: 8
                                   }
                                 },
                                 ticks: {
                                   font: {
-                                    size: 7 // Azaltıldı
+                                    size: 7
                                   }
                                 }
                               },
@@ -1101,12 +1161,12 @@ const handleSaveToList = async (e) => {
                                   display: true,
                                   text: 'Tarih',
                                   font: {
-                                    size: 8 // Azaltıldı
+                                    size: 8
                                   }
                                 },
                                 ticks: {
                                   font: {
-                                    size: 7 // Azaltıldı
+                                    size: 7
                                   }
                                 }
                               }
@@ -1133,7 +1193,7 @@ const handleSaveToList = async (e) => {
             </div>
 
             {/* Footer */}
-            <div className="bg-gray-50 p-2 sm:p-3 border-t border-gray-200 flex justify-end flex-shrink-0"> {/* flex-shrink-0 eklendi */}
+            <div className="bg-gray-50 p-2 sm:p-3 border-t border-gray-200 flex justify-end flex-shrink-0">
               <button
                 onClick={() => {
                   setShowChart(false);
