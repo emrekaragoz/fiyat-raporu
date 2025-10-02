@@ -322,41 +322,54 @@ export default function App() {
   }, [reportList]);
 
   useEffect(() => {
-    if (productType === 'Zeytinyağı') {
-      const firstOliveOilBrand = Object.keys(oliveOilBrandData)[0];
-      if (!oliveOilBrandData[selectedBrand]) {
-        setSelectedBrand(firstOliveOilBrand);
+    // Seçili ürün türüne göre veri dosyasını belirle
+    const dataSource = productType === 'Zeytinyağı' ? dataFromFile : data2FromFile;
+    // Dosyadan gelen veriyi state'e set et
+    setReportList(dataSource);
+    // Set default selected tab to today's date if available, otherwise to first date
+    if (dataSource.length > 0) {
+      const today = new Date().toISOString().split('T')[0];
+      const dates = [...new Set(dataSource.map(item => item.tarih))];
+      if (dates.includes(today)) {
+        setSelectedDateTab(today);
+      } else {
+        setSelectedDateTab(dates.sort((a, b) => new Date(b) - new Date(a))[0]);
       }
-    } else if (productType === 'Zeytin') {
-      setSelectedBrand('');
-      const firstOliveBrand = Object.keys(oliveBrandData)[0];
-      setTimeout(() => setSelectedBrand(firstOliveBrand), 0); // Bir sonraki render'da ayarla
+    } else {
+      // Eğer veri yoksa, tab'ı sıfırla
+      setSelectedDateTab('');
     }
   }, [productType]);
 
     const getBackgroundClass = () => {
-      return productType === 'Zeytinyağı' ? 'bg-yellow-200' : 'bg-green-200'; // Zeytinyağı: Açık sarı, Zeytin: Açık yeşil
+      return productType === 'Zeytinyağı' ? 'bg-yellow-100' : 'bg-green-100'; // Zeytinyağı: Açık sarı, Zeytin: Açık yeşil
     };
     
-  const handleSaveReportExcel = () => {
+const handleSaveReportExcel = () => {
     if (reportList.length === 0) {
       showNotification('Kaydedilecek veri bulunmuyor. Lütfen önce listeye ekleme yapın.', 'error');
       return;
     }
+    // Verileri XLSX formatına uygun diziye dönüştür
     const worksheetData = reportList.map(item => ({
       Marka: item.brand,
       Tanım: item.tanim,
-      "Online Fiyat": item.online || '',
+      "Online Fiyat": item.online || '', // Boşsa boş bırak
       "Süpermarket Fiyatı": item.supermarket || '',
       "Web Sitesi Fiyatı": item.webSitesi || '',
       Tarih: item.tarih
     }));
-
+    // Yeni bir workbook (çalışma kitabı) oluştur
     const wb = XLSX.utils.book_new();
+    // Verilerden bir worksheet (çalışma sayfası) oluştur
     const ws = XLSX.utils.json_to_sheet(worksheetData);
+    // Worksheet'i workbook'a ekle
     XLSX.utils.book_append_sheet(wb, ws, "Fiyat Raporu");
-    XLSX.writeFile(wb, 'fiyat_raporu.xlsx');
-    showNotification('Rapor başarıyla "fiyat_raporu.xlsx" olarak indirildi!', 'success');
+    // Seçili ürün türüne göre dosya adını belirle
+    const fileName = productType === 'Zeytinyağı' ? 'zeytinyagi_fiyat_raporu.xlsx' : 'zeytin_fiyat_raporu.xlsx';
+    // Workbook'u binary string (XLSX formatında) olarak yaz
+    XLSX.writeFile(wb, fileName); // Doğrudan .xlsx uzantısıyla indir
+    showNotification(`Rapor başarıyla "${fileName}" olarak indirildi!`, 'success');
   };
 
   const handleBrandChange = (e) => {
@@ -674,21 +687,22 @@ export default function App() {
     }, 3000);
   };
 
-  const handleSaveReport = () => {
+   const handleSaveReport = () => {
     if (reportList.length === 0) {
       showNotification('Kaydedilecek veri bulunmuyor. Lütfen önce listeye ekleme yapın.', 'error');
       return;
     }
+    // Seçili ürün türüne göre dosya adını belirle
+    const fileName = productType === 'Zeytinyağı' ? 'zeytinyagi_fiyat_raporu.json' : 'zeytin_fiyat_raporu.json';
     const dataStr = JSON.stringify(reportList, null, 2);
-    const dataUri = 'application/json;charset=utf-8,' + encodeURIComponent(dataStr);
-
+    const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
     const linkElement = document.createElement('a');
     linkElement.setAttribute('href', dataUri);
-    linkElement.setAttribute('download', 'fiyat_raporu.json');
+    linkElement.setAttribute('download', fileName);
     document.body.appendChild(linkElement);
     linkElement.click();
     document.body.removeChild(linkElement);
-    showNotification('Rapor başarıyla "fiyat_raporu.json" olarak indirildi!', 'success');
+    showNotification(`Rapor başarıyla "${fileName}" olarak indirildi!`, 'success');
   };
 
   const saveDataToFile = async (data) => {
@@ -706,55 +720,57 @@ export default function App() {
         </div>
       </header>
       <main className="container mx-auto p-4 md:p-8">
-        {/* --- Yeni Toggle Butonları --- */}
-        <div className="bg-white p-4 rounded-lg shadow-md mb-4">
-          <h2 className="text-xl font-semibold mb-3 text-gray-800 text-center">Ürün Türü</h2>
-          <div className="flex justify-center space-x-4">
-            <button
-              onClick={() => setProductType('Zeytinyağı')}
-              className={`flex-1 py-4 px-6 rounded-lg font-bold text-lg transition-all border ${
-                productType === 'Zeytinyağı'
-                  ? 'bg-yellow-500 text-white border-yellow-600 shadow-md' // Zeytinyağı seçiliyse buton rengi
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300 border-gray-300' // Değilse gri
-              }`}
-            >
-              Zeytinyağı
-            </button>
-            <button
-              onClick={() => setProductType('Zeytin')}
-              className={`flex-1 py-4 px-6 rounded-lg font-bold text-lg transition-all border ${
-                productType === 'Zeytin'
-                  ? 'bg-green-500 text-white border-green-600 shadow-md' // Zeytin seçiliyse buton rengi
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300 border-gray-300' // Değilse gri
-              }`}
-            >
-              Zeytin
-            </button>
+         {/* --- Yeni Toggle Butonları --- */}
+         <div className="bg-white p-4 rounded-lg shadow-md mb-4">
+            <h2 className="text-xl font-semibold mb-3 text-gray-800 text-center">Ürün Türü</h2>
+            <div className="flex justify-center space-x-4">
+              <button
+                onClick={() => setProductType('Zeytinyağı')}
+                className={`flex-1 py-4 px-6 rounded-lg font-bold text-lg transition-all border ${
+                  productType === 'Zeytinyağı'
+                    ? 'bg-yellow-500 text-white border-yellow-600 shadow-md' // Zeytinyağı seçiliyse sarı buton
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300 border-gray-300' // Değilse gri
+                }`}
+              >
+                Zeytinyağı
+              </button>
+              <button
+                onClick={() => setProductType('Zeytin')}
+                className={`flex-1 py-4 px-6 rounded-lg font-bold text-lg transition-all border ${
+                  productType === 'Zeytin'
+                    ? 'bg-green-500 text-white border-green-600 shadow-md' // Zeytin seçiliyse yeşil buton
+                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300 border-gray-300' // Değilse gri
+                }`}
+              >
+                Zeytin
+              </button>
+            </div>
+            <p className="text-center text-sm text-gray-500 mt-2">
+              Seçili Ürün: <span className="font-semibold">{productType}</span>
+            </p>
           </div>
-          <p className="text-center text-sm text-gray-500 mt-2">
-            Seçili Ürün: <span className="font-semibold">{productType}</span>
-          </p>
-        </div>
          {/* --- Marka Seçim Alanı ve Hızlı Erişim Linkleri --- */}
         <div className="bg-white p-6 rounded-lg shadow-md mb-8">
           <h2 className="text-xl font-semibold mb-4 text-gray-800">Marka Seçimi</h2>
-          <div className="flex flex-col lg:flex-row gap-6">
-            <div className="flex-1">
+          <div className="flex flex-col lg:flex-row gap-6"> {/* lg:flex-row: büyük ekranlarda yatay hizala */}
+            {/* Marka Dropdown */}
+            <div className="flex-1"> {/* Flex-grow: kalan alanı kaplar */}
               <select
-                value={currentBrandKey} // currentBrandKey'i value olarak kullan
+                value={selectedBrand}
                 onChange={handleBrandChange}
                 className="bg-gray-50 w-full border border-gray-300 rounded-md px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-all"
               >
-                {Object.keys(currentBrandData).map((brand) => (
+                {/* Seçili ürün türüne göre markaları göster */}
+                {Object.keys(productType === 'Zeytinyağı' ? oliveOilBrandData : oliveBrandData).map((brand) => (
                   <option key={brand} value={brand}>
                     {brand}
                   </option>
                 ))}
               </select>
             </div>
-
-            <div className="w-full lg:w-auto">
-              <h2 className="text-xl font-semibold mb-2 lg:mb-4 text-gray-800 lg:hidden">Hızlı Erişim Linkleri</h2>
+            {/* Hızlı Erişim Linkleri */}
+            <div className="w-full lg:w-auto"> {/* lg:w-auto: büyük ekranda otomatik boyut alır */}
+              <h2 className="text-xl font-semibold mb-2 lg:mb-4 text-gray-800 lg:hidden">Hızlı Erişim Linkleri</h2> {/* Mobilde başlık */}
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
                 {Object.entries(currentBrand.links).map(([name, link]) => (
                   <a
@@ -1022,13 +1038,13 @@ export default function App() {
                     onClick={() => setSelectedChartBrands(getUniqueBrandsFromData())}
                     className="w-full text-xs bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded transition-colors"
                   >
-                    T
+                    Tümünü Seç
                   </button>
                   <button
                     onClick={() => setSelectedChartBrands([])}
                     className="w-full text-xs bg-gray-200 hover:bg-gray-300 text-gray-700 px-2 py-1 rounded transition-colors"
                   >
-                    -
+                    Temizle
                   </button>
                 </div>
               </div>
