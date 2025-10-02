@@ -346,31 +346,43 @@ export default function App() {
     };
     
 const handleSaveReportExcel = () => {
-    if (reportList.length === 0) {
-      showNotification('Kaydedilecek veri bulunmuyor. Lütfen önce listeye ekleme yapın.', 'error');
-      return;
-    }
-    // Verileri XLSX formatına uygun diziye dönüştür
-    const worksheetData = reportList.map(item => ({
-      Marka: item.brand,
-      Tanım: item.tanim,
-      "Online Fiyat": item.online || '', // Boşsa boş bırak
-      "Süpermarket Fiyatı": item.supermarket || '',
-      "Web Sitesi Fiyatı": item.webSitesi || '',
-      Tarih: item.tarih
-    }));
-    // Yeni bir workbook (çalışma kitabı) oluştur
-    const wb = XLSX.utils.book_new();
-    // Verilerden bir worksheet (çalışma sayfası) oluştur
-    const ws = XLSX.utils.json_to_sheet(worksheetData);
-    // Worksheet'i workbook'a ekle
-    XLSX.utils.book_append_sheet(wb, ws, "Fiyat Raporu");
-    // Seçili ürün türüne göre dosya adını belirle
-    const fileName = productType === 'Zeytinyağı' ? 'zeytinyagi_fiyat_raporu.xlsx' : 'zeytin_fiyat_raporu.xlsx';
-    // Workbook'u binary string (XLSX formatında) olarak yaz
-    XLSX.writeFile(wb, fileName); // Doğrudan .xlsx uzantısıyla indir
-    showNotification(`Rapor başarıyla "${fileName}" olarak indirildi!`, 'success');
-  };
+  if (reportList.length === 0) {
+    showNotification('Kaydedilecek veri bulunmuyor. Lütfen önce listeye ekleme yapın.', 'error');
+    return;
+  }
+
+  // Seçili markaya göre veriyi filtrele
+  const filteredData = reportList.filter(item => item.brand === selectedBrand);
+
+  if (filteredData.length === 0) {
+    showNotification(`${selectedBrand} markasına ait veri bulunmuyor.`, 'error');
+    return;
+  }
+
+  // Filtrelenmiş verileri XLSX formatına uygun diziye dönüştür
+  const worksheetData = filteredData.map(item => ({
+    Marka: item.brand,
+    Tanım: item.tanim,
+    "Online Fiyat": item.online || '', // Boşsa boş bırak
+    "Süpermarket Fiyatı": item.supermarket || '',
+    "Web Sitesi Fiyatı": item.webSitesi || '',
+    Tarih: item.tarih
+  }));
+
+  // Yeni bir workbook (çalışma kitabı) oluştur
+  const wb = XLSX.utils.book_new();
+  // Verilerden bir worksheet (çalışma sayfası) oluştur
+  const ws = XLSX.utils.json_to_sheet(worksheetData);
+  // Worksheet'i workbook'a ekle
+  XLSX.utils.book_append_sheet(wb, ws, "Fiyat Raporu");
+
+  // Seçili ürün türüne göre dosya adını belirle
+  const fileName = productType === 'Zeytinyağı' ? `zeytinyagi_${selectedBrand}_fiyat_raporu.xlsx` : `zeytin_${selectedBrand}_fiyat_raporu.xlsx`;
+
+  // Workbook'u binary string (XLSX formatında) olarak yaz
+  XLSX.writeFile(wb, fileName); // Belirlenen dosya adıyla indir
+  showNotification(`Rapor başarıyla "${fileName}" olarak indirildi!`, 'success');
+};
 
   const handleBrandChange = (e) => {
     setSelectedBrand(e.target.value);
@@ -686,14 +698,43 @@ const handleSaveReportExcel = () => {
       setNotification('');
     }, 3000);
   };
+const handleSaveFullReportExcel = () => {
+    if (reportList.length === 0) {
+      showNotification('Kaydedilecek veri bulunmuyor.', 'error');
+      return;
+    }
 
+    // Filtreleme yapmadan doğrudan tüm reportList'i kullan
+    const worksheetData = reportList.map(item => ({
+      Marka: item.brand,
+      Tanım: item.tanim,
+      "Online Fiyat": item.online || '', // Boşsa boş bırak
+      "Süpermarket Fiyatı": item.supermarket || '',
+      "Web Sitesi Fiyatı": item.webSitesi || '',
+      Tarih: item.tarih
+    }));
+
+    // Yeni bir workbook (çalışma kitabı) oluştur
+    const wb = XLSX.utils.book_new();
+    // Verilerden bir worksheet (çalışma sayfası) oluştur
+    const ws = XLSX.utils.json_to_sheet(worksheetData);
+    // Worksheet'i workbook'a ekle
+    XLSX.utils.book_append_sheet(wb, ws, "Fiyat Raporu");
+
+    // Seçili ürün türüne göre dosya adını belirle
+    const fileName = productType === 'Zeytinyağı' ? 'zeytinyagi_tum_fiyatlar.xlsx' : 'zeytin_tum_fiyatlar.xlsx';
+
+    // Workbook'u binary string (XLSX formatında) olarak yaz
+    XLSX.writeFile(wb, fileName); // Belirlenen dosya adıyla indir
+    showNotification(`Tüm liste başarıyla "${fileName}" olarak indirildi!`, 'success');
+  };
    const handleSaveReport = () => {
     if (reportList.length === 0) {
       showNotification('Kaydedilecek veri bulunmuyor. Lütfen önce listeye ekleme yapın.', 'error');
       return;
     }
     // Seçili ürün türüne göre dosya adını belirle
-    const fileName = productType === 'Zeytinyağı' ? 'zeytinyagi_fiyat_raporu.json' : 'zeytin_fiyat_raporu.json';
+    const fileName = productType === 'Zeytinyağı' ? 'zeytinyagi_kalici_kayit.json' : 'zeytin_kalici_kayit.json';
     const dataStr = JSON.stringify(reportList, null, 2);
     const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
     const linkElement = document.createElement('a');
@@ -919,13 +960,29 @@ const handleSaveReportExcel = () => {
               ))}
             </div>
             {/* --- Yeni Excel Butonu (Tablo Altında Sağda) --- */}
-            <div className="mt-4 flex justify-end">
+            <div className="mt-4 flex justify-end space-x-2"> {/* mt-4: biraz üst boşluk, justify-end: sağa yaslar, space-x-2: butonlar arası boşluk */}
+               
+              {/* Seçili Marka için Excel Butonu */}
               <button
                 onClick={handleSaveReportExcel}
-                className="bg-gradient-to-b from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors border border-green-700 shadow-md"
+                className="bg-gradient-to-b from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-2 px-4 rounded-lg transition-colors border border-green-700 shadow-md text-sm"
               >
-                Tabloyu Excel'e Aktar
+                Seçili Marka Excele Aktar
               </button>
+              {/* Tüm Liste için Excel Butonu */}
+              <button
+                onClick={handleSaveFullReportExcel}
+                className="bg-gradient-to-b from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors border border-blue-700 shadow-md text-sm"
+              >
+                Tüm Listeyi Excele Aktar
+              </button>
+              
+            <button
+              onClick={handleSaveReport}
+              className="bg-gradient-to-b from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-gray-900 font-bold py-1.5 px-3 rounded-lg transition-colors h-[38px] border border-yellow-600 shadow-sm text-sm"
+            >
+              Kalıcı Kaydetme Verisi
+            </button>
             </div>
           </div>
         )}
@@ -934,13 +991,6 @@ const handleSaveReportExcel = () => {
         {/* --- Raporu Kaydet Butonu --- */}
         {/* --- Raporu Kaydet ve Grafik Butonları --- */}
 <div className="text-center mt-10 space-y-4 md:space-y-0 md:space-x-4">
-  <button
-    onClick={handleSaveReport}
-    className="bg-gradient-to-b from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-gray-900 font-extrabold py-3 px-8 rounded-lg transition-all text-lg shadow-lg transform hover:scale-105 border border-yellow-600"
-  >
-    Raporu Kaydet
-  </button>
-  
   <button
     onClick={generateChartData}
     className="bg-gradient-to-b from-blue-400 to-blue-500 hover:from-blue-500 hover:to-blue-600 text-white font-extrabold py-3 px-8 rounded-lg transition-all text-lg shadow-lg transform hover:scale-105 border border-blue-600"
